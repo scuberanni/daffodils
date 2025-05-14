@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    {% load static %}
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url("{% static 'images/login-bg.jpg' %}") no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .wrapper {
+            width: 400px;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .input-field {
+            position: relative;
+            border-bottom: 2px solid #ffffff;
+            margin: 15px 0;
+        }
+
+        .input-field label {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            color: #ffffff;
+            font-size: 16px;
+            pointer-events: none;
+            transition: 0.15s ease;
+        }
+
+        .input-field input,
+        .input-field select {
+            width: 100%;
+            height: 30px;
+            /* smaller height */
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            /* smaller text */
+            color:#000;
+        }
+
+        .input-field label {
+            font-size: 14px;
+        }
+
+        .forget {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 25px 0 35px 0;
+            color: #fff;
+        }
+
+        #remember {
+            accent-color: #fff;
+        }
+
+        .forget label {
+            display: flex;
+            align-items: center;
+        }
+
+        .forget label p {
+            margin-left: 8px;
+        }
+
+        .wrapper a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .wrapper a:hover {
+            text-decoration: underline;
+        }
+
+
+        .input-field input::placeholder {
+            color: black;
+            /* Placeholder text color */
+            opacity: 1;
+        }
+
+        .input-field input:focus::placeholder {
+            color:#000;
+            /* Placeholder text color becomes white when focused */
+        }
+
+        .input-field input {
+            color:#000;
+            /* Normal text color */
+        }
+
+        .input-field input:focus {
+            color:#000;
+            /* Text color becomes white when focused */
+        }
+
+        .input-field select {
+            color: black;
+            /* Normal text color in select */
+        }
+
+        .input-field select:focus {
+            color:#000;
+            /* Text color becomes white when focused */
+        }
+
+        /* Placeholder text color in select */
+        .input-field select::placeholder {
+            color: black;
+        }
+
+        button {
+            background: #0ea31d;
+            color: #000;
+            font-weight: 600;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 16px;
+            border: 2px solid transparent;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            color: #fff;
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .register {
+            text-align: center;
+            margin-top: 30px;
+            color: #ffffff;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .wrapper {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .input-field input {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data" autocomplete="off">
+            {% csrf_token %}
+
+            <!-- Hidden fields to trick autofill -->
+            <input type="text" name="fakeusernameremembered" style="display:none">
+            <input type="password" name="fakepasswordremembered" style="display:none">
+
+            <h2>User Registration</h2>
+
+            <!-- Username -->
+            <div class="input-field">
+                <input type="text" name="username" placeholder="Enter your username" autocomplete="off" required>
+            </div>
+
+            <!-- Email -->
+            <div class="input-field">
+                <input type="email" name="email" placeholder="Enter your email" autocomplete="off" required>
+            </div>
+
+            <!-- Password -->
+            <div class="input-field">
+                <input type="password" name="password1" placeholder="Enter your password" autocomplete="new-password"
+                    required>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="input-field">
+                <input type="password" name="password2" placeholder="Confirm your password" autocomplete="new-password"
+                    required>
+            </div>
+
+            <!-- Full Name -->
+            <div class="input-field">
+                <input type="text" name="full_name" placeholder="Enter your full name" autocomplete="off" required>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="input-field">
+                <input type="tel" name="phone" placeholder="Enter your phone number" autocomplete="off" required>
+            </div>
+
+            <!-- Batch -->
+            <div class="input-field">
+                <select name="batch" required>
+                    <option value="" disabled selected>-- Select Batch --</option>
+                    <option value="10A">10A</option>
+                    <option value="10B">10B</option>
+                    <option value="10C">10C</option>
+                    <option value="10D">10D</option>
+                </select>
+            </div>
+
+            <!-- Photo Upload -->
+            <div class="input-field">
+                <input type="file" name="photo" accept="image/*" required>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Oxygen:400,300,700" rel="stylesheet" type="text/css" />
+    <link href="https://code.ionicframework.com/ionicons/1.4.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    {% load static %}
+    <style>
+        :root {
+            --font-color: #fff;
+            --ui-accent: #538a9a;
+            --gradient-start: #4e7a89;
+            --gradient-end: #2e3441;
+        }
+
+        html,
+        body {
+            padding-top: 30px;
+            min-height: 100%;
+            font-family: Oxygen, sans-serif;
+            font-weight: 300;
+            font-size: 1em;
+            color: var(--font-color);
+            margin: 0;
+        }
+
+        body {
+            background: var(--gradient-end);
+            background-image: radial-gradient(circle at top, var(--gradient-start), var(--gradient-end) 80%);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .signin {
+            width: 250px;
+            height: 255px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.2), inset -1px -1px 0 0 rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .signin .avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 35px auto;
+            border: 5px solid #fff;
+            border-radius: 100%;
+            pointer-events: none;
+            font-family: Ionicons;
+            font-size: 5em;
+            line-height: 100px;
+            text-align: center;
+        }
+
+        .signin .avatar::before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-image: url("{% static 'images/avatar.png' %}");
+            background-size: cover;
+            background-position: center;
+            border-radius: 100%;
+        }
+
+        .signin .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .inputrow {
+            position: relative;
+        }
+
+        .inputrow label {
+            position: absolute;
+            top: 12px;
+            left: 10px;
+            color: var(--ui-accent);
+            opacity: 0.4;
+            transition: opacity 300ms ease;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px 12px 10px 32px;
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background-color: #fff;
+            color: #333;
+            font-size: 1em;
+            font-weight: 300;
+            border-radius: 5px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 300ms ease;
+        }
+
+        input[type="text"]:focus+label,
+        input[type="password"]:focus+label {
+            opacity: 1;
+        }
+
+        input[type="submit"] {
+            height: 40px;
+            padding: 10px 12px;
+            background-color: var(--ui-accent);
+            text-transform: uppercase;
+            color: #fff;
+            border: none;
+            float: right;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #5f97a7;
+        }
+
+        input[type="submit"]:active {
+            background-color: #4a7685;
+        }
+
+        ul.messages {
+            width: 250px;
+            margin: 10px auto;
+            padding: 0;
+            list-style: none;
+            font-size: 0.9em;
+            color: #ffc;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="signin">
+        <div class="avatar"></div>
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+
+            <!-- Hidden fields to trick autofill -->
+            <input type="text" style="display:none">
+            <input type="password" style="display:none">
+
+            <!-- Username -->
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit">
+            </form>
+
+            <!-- Submit Button -->
+            
+        </form>
+    </div>
+
+    <!-- Messages -->
+    
+</body>
+
+</html>
+

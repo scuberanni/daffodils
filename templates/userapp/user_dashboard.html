@@ -1,0 +1,101 @@
+
+{% extends 'userapp/blank_layout_user.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="container-fluid ">
+    <div class="row">
+        <div class="col-12 col-md-4 ">
+            <section class="container-fluid">
+                <div class="row">
+                    <row class="d-flex justify-content-start">
+                        <img src="{% static 'images\bpl.jpg' %}" alt="...." class="col-12 col-md-12 rounded-5"
+                            style=" margin: 20PX 20px -20px 0px; height: 420px; width: 620px;">
+                    </row>
+                </div>
+            </section>
+
+            <section>
+                <div class="d-grid gap-2 container">
+
+                    <BR></BR>
+
+                </div>
+            </section>
+
+        </div>
+        <div class=" col-12 col-md-8 ">
+            <section class="container-fluid">
+                <div class="row">
+                   
+                    
+
+
+
+                </div>
+            </section>
+        </div>
+        <div class=" col-12 col-md-12 ">
+            <section class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-2  ">
+                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
+                            <a href=""><img src="{% static 'images\P4.PNG' %}"
+                                    class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
+                            <H5 class="text-center pt-2" style="color: aliceblue;">START AUCTION</H5>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-2 ">
+                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
+                            <a href=""><img src="{% static 'images\P1.PNG' %}"
+                                    class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
+                            <H5 class="text-center pt-2" style="color: aliceblue;">PLAYER LIST</H5>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-2  ">
+                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
+                            <a href=""><img src="{% static 'images\P7.PNG' %}"
+                                    class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
+                            <H5 class="text-center pt-2" style="color: aliceblue;">UNSOLD PLAYER LIST</H5>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-2 ">
+                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
+                            <a href=""><img src="{% static 'images\P8.PNG' %}"
+                                    class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
+                            <H5 class="text-center pt-2" style="color: aliceblue;">SOLD PLAYER LIST</H5>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-2 ">
+                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
+                            <a href=""><img src="{% static 'images\P3.PNG' %}" class="card-img-top "
+                                    style="border-radius: 13PX;height:100PX;" alt=""></a>
+                            <H5 class="text-center pt-2" style="color: aliceblue;">WALLET DETAILS</H5>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-2 ">
+                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
+                            <a href=""><img src="{% static 'images\P5.PNG' %}" class="card-img-top "
+                                    style="border-radius: 13PX;height:100PX;" alt=""></a>
+                            <H5 class="text-center pt-2" style="color: aliceblue;">EXPENSIVE PLAYER</H5>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+<br>
+
+<h2>Welcome, {{ request.user.first_name }}!</h2>
+    <p>Your User ID is: {{ user_id }}</p>
+
+
+{% endblock %}
+
+
