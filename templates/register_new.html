@@ -127,7 +127,7 @@
 
 <body>
     <div class="wrapper">
-        <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data" autocomplete="off">
+        <form method="POST" action="{% url 'register_new' %}" enctype="multipart/form-data" autocomplete="off">
             {% csrf_token %}
 
             <!-- Hidden fields to trick autofill -->

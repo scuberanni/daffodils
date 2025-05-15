@@ -12,41 +12,47 @@ from django.contrib.auth import authenticate, login, logout
 
 def register(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        email = request.POST['email']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
-        full_name = request.POST['full_name']
-        phone = request.POST['phone']
-        batch = request.POST['batch']
+        username = request.POST.get('username', '')
+        email = request.POST.get('email', '')
+        password1 = request.POST.get('password1', '')
+        password2 = request.POST.get('password2', '')
+        full_name = request.POST.get('full_name', '')
+        phone = request.POST.get('phone', '')
+        batch = request.POST.get('batch', '')
         photo = request.FILES.get('photo')
 
-        # Password check
+        context = {
+            'username': username,
+            'email': email,
+            'full_name': full_name,
+            'phone': phone,
+            'batch': batch,
+        }
+
         if password1 != password2:
             messages.error(request, "Passwords do not match.")
-            return redirect('register')
+            context['password1'] = ''
+            context['password2'] = ''
+            return render(request, 'userapp/register.html', context)
 
-        # Username existence check
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already taken.")
-            return redirect('register')
+            context['username'] = ''
+            return render(request, 'userapp/register.html', context)
 
-        # Phone number existence check
         if UserProfile.objects.filter(phone=phone).exists():
             messages.error(request, "Phone number already used.")
-            return redirect('register')
+            context['phone'] = ''
+            return render(request, 'userapp/register.html', context)
 
-        # Batch validation
         if not batch:
             messages.error(request, "Batch is required.")
-            return redirect('register')
+            return render(request, 'userapp/register.html', context)
 
-        # Create the user
         user = User.objects.create_user(username=username, email=email, password=password1)
         user.first_name = full_name
         user.save()
 
-        # Create user profile
         UserProfile.objects.create(
             user=user,
             phone=phone,
