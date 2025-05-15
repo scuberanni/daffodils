@@ -11,35 +11,42 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="icon" href="{% static 'images/bpl.png' %}" type="image/gif">
 </head>
+<style>
+    .bgimg {
+        background-image: url("{% static 'images/home.jpg' %}");
+        /* Use static URL for image */
+        min-height: 100vh;
+        background-position: center;
+        background-size: cover;
+    }
+</style>
 
-<body style="margin:0;">
+
+<body class="bgimg" style="margin:0;">
     <div style="
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    background-image: url('https://cdn.wallpapersafari.com/56/95/HxaGef.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     opacity: 0.9;
     z-index: -1;">
     </div>
     <header>
-        <nav class="navbar navbar-expand-lg bg-transparent" >
+        <nav class="navbar navbar-expand-lg bg-transparent">
             <div class="container-fluid">
-                <a style="color: rgb(255, 255, 255);font-weight: bold;" class="navbar-brand" href="{% url 'home' %}"> <img
-                        style="width: 30px; height: 30px; padding-bottom: 5px;"
-                        src="{% static 'images\bpl.png' %}" alt=""> </a>
+                <a style="color: rgb(255, 255, 255);font-weight: bold;" class="navbar-brand" href="{% url 'home' %}">
+                    <img style="width: 30px; height: 30px; padding-bottom: 5px;" src="{% static 'images\bpl.png' %}"
+                        alt=""> </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav" >
+                    <div class="navbar-nav">
                         <div class=""><a style="color: rgb(255, 255, 255);" class="nav-link nb" href=""></a></div>
-                        <div class=""><a style="color: rgb(255, 255, 255);" class="nav-link nb1 " href="#" onclick="openFullScreen()"></a></div>
-                        <div class="txt"><a  style="text-decoration: none;color: white;" href="" >DAFFODILS 2025</a></div>
+                        <div class=""><a style="color: rgb(255, 255, 255);" class="nav-link nb1 " href="#"
+                                onclick="openFullScreen()"></a></div>
+                        <div class="txt"><a style="text-decoration: none;color: white;" href="">DAFFODILS 2025</a></div>
                     </div>
                 </div>
             </div>
@@ -54,6 +61,7 @@
             font-size: 20px;
             height: 20px;
         }
+
         .nb {
             background-image: url("{% static 'images/s.png' %}");
             background-size: cover;
@@ -63,6 +71,7 @@
             width: 25px;
             height: 20px;
         }
+
         .nb1 {
             margin: 10px;
             background-image: url("{% static 'images/fs.png' %}");
@@ -72,7 +81,6 @@
             width: 25px;
             height: 20px;
         }
-        
     </style>
 
     <section class="container ">

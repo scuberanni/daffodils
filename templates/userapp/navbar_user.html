@@ -12,15 +12,22 @@
     <link rel="icon" href="{% static 'images/bpl.png' %}" type="image/gif">
 </head>
 
-<body style="margin:0;">
+<style>
+    .bgimg {
+        background-image: url("{% static 'images/home.jpg' %}");
+        /* Use static URL for image */
+        min-height: 100vh;
+        background-position: center;
+        background-size: cover;
+    }
+</style>
+
+<body class="bgimg" style="margin:0;">
     <div style="
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    background-image: url('https://cdn.wallpapersafari.com/56/95/HxaGef.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    
     opacity: 0.9;
     z-index: -1;">
     </div>
