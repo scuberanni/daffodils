@@ -207,6 +207,16 @@
                 </select>
             </div>
 
+            <div class="input-field">
+                <input type="tel" name="n_adult" placeholder="how many adults participate" autocomplete="off"
+                    value="{{ phone|default:'' }}" required />
+            </div>
+
+            <div class="input-field">
+                <input type="tel" name="n_child" placeholder="how many childrens participate" autocomplete="off"
+                    value="{{ phone|default:'' }}" required />
+            </div>
+
 
             <div class="input-field">
                 <input type="file" name="photo" accept="image/*" />

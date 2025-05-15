@@ -30,6 +30,8 @@ def register_new(request):
         full_name = request.POST.get('full_name', '')
         phone = request.POST.get('phone', '')
         batch = request.POST.get('batch', '')
+        n_adult = request.POST.get('n_adult', '')
+        n_child = request.POST.get('n_child', '')
         photo = request.FILES.get('photo')
 
         # Prepare context with all data to refill except error field(s)
@@ -39,8 +41,9 @@ def register_new(request):
             'full_name': full_name,
             'phone': phone,
             'batch': batch,
-            'password1': password1,
-            'password2': password2,
+            'n_adult':n_adult,
+            'n_child':n_child,
+
         }
 
         # Password match check
@@ -77,6 +80,8 @@ def register_new(request):
             phone=phone,
             batch=batch,
             photo=photo,
+            n_adult=n_adult,
+            n_child=n_child,
             is_approved=False
         )
 
