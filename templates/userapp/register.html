@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>User Registration</title>
     {% load static %}
+
+    <!-- Cropper.js CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
     <style>
-        /* ... your CSS styles from before ... */
         @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
         * {
             margin: 0;
@@ -103,6 +106,30 @@
             font-weight: 600;
         }
 
+        /* Crop modal styles */
+        #cropModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #cropModal .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        #cropImage {
+            max-width: 90%;
+            max-height: 60vh;
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             .wrapper {
@@ -124,19 +151,16 @@
         }
     </style>
 </head>
-
 <body>
     <div class="wrapper">
         <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data" autocomplete="off">
+    
             {% csrf_token %}
-
-            <!-- Hidden fields to trick autofill -->
             <input type="text" name="fakeusernameremembered" style="display:none" />
             <input type="password" name="fakepasswordremembered" style="display:none" />
 
             <h2>User Registration</h2>
 
-            <!-- Username -->
             <div class="input-field">
                 <input type="text" name="username" placeholder="Enter your username" autocomplete="off"
                     value="{{ username|default:'' }}" required />
@@ -172,7 +196,7 @@
                     value="{{ phone|default:'' }}" required />
             </div>
 
-            <!-- Batch -->
+
             <div class="input-field">
                 <select name="batch" required>
                     <option value="" disabled {% if not batch %}selected{% endif %}>-- Select Batch --</option>
@@ -183,12 +207,12 @@
                 </select>
             </div>
 
-            <!-- Photo Upload -->
+
             <div class="input-field">
-                <input type="file" name="photo" accept="image/*" required />
+                <input type="file" name="photo" accept="image/*" />
             </div>
 
-            <!-- Submit -->
+
             <button type="submit">Register</button>
 
             {% if messages %}
@@ -200,6 +224,79 @@
             {% endif %}
         </form>
     </div>
-</body>
 
+    <!-- Crop Modal -->
+    <div id="cropModal">
+        <div class="modal-content">
+            <h3>Crop Your Photo (1:1)</h3>
+            <img id="cropImage" />
+            <br><br>
+            <button type="button" onclick="cropAndUpload()">Crop & Use</button>
+            <button type="button" onclick="closeCropModal()" style="margin-left: 10px;">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        let cropper;
+        const input = document.querySelector('input[name="photo"]');
+        const modal = document.getElementById('cropModal');
+        const cropImage = document.getElementById('cropImage');
+
+        input.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.size > 300 * 1024) {
+                alert("Image must be below 300KB.");
+                input.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                cropImage.src = event.target.result;
+                modal.style.display = 'flex';
+
+                cropImage.onload = () => {
+                    if (cropper) cropper.destroy();
+                    cropper = new Cropper(cropImage, {
+                        aspectRatio: 1,
+                        viewMode: 1
+                    });
+                };
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function cropAndUpload() {
+            cropper.getCroppedCanvas().toBlob(blob => {
+                if (blob.size > 300 * 1024) {
+                    alert("Cropped image exceeds 300KB. Try cropping tighter or choosing a smaller file.");
+                    input.value = '';
+                    closeCropModal();
+                    return;
+                }
+
+                const croppedFile = new File([blob], "cropped.jpg", { type: "image/jpeg" });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(croppedFile);
+                input.files = dataTransfer.files;
+
+                closeCropModal();
+            }, 'image/jpeg', 0.95);
+        }
+
+        function closeCropModal() {
+            modal.style.display = 'none';
+            if (cropper) cropper.destroy();
+        }
+    </script>
+</body>
 </html>
+
+
+
+
+
+
+
