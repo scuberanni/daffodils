@@ -118,7 +118,7 @@ def user_login(request):
 @require_GET
 def user_logout(request):
     logout(request)
-    return redirect('user_login')
+    return redirect('home') 
 
 
 @login_required(login_url='/user/login/')
