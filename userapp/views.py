@@ -2,12 +2,12 @@
 
 # Create your views here.
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib import messages
-
+from django.views.decorators.http import require_GET
 from django.contrib.auth import authenticate, login, logout
 
 def register(request):
@@ -115,9 +115,9 @@ def user_login(request):
 
     return render(request, 'userapp/login.html')
 
+@require_GET
 def user_logout(request):
     logout(request)
-    messages.success(request, "You have been logged out successfully.")
     return redirect('user_login')
 
 
@@ -125,3 +125,12 @@ def user_logout(request):
 def user_dashboard(request):
     user_id = request.user.id
     return render(request, 'userapp/user_dashboard.html', {'user_id': user_id})
+
+@login_required
+def view_profile(request):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        return redirect('home')  # or show an error page 
+
+    return render(request, 'userapp/view_profile.html', {'profile': profile})
