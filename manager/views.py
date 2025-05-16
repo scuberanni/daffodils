@@ -4,6 +4,8 @@ from django.http import HttpResponseForbidden
 from userapp.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib import admin
+from django.http import HttpRequest
 
 
 
@@ -12,7 +14,8 @@ from django.contrib import messages
 def home(request):
     return render(request, 'home.html')
 
-
+def custom_admin_view(request: HttpRequest):
+    return admin.site.admin_view(lambda req: req)(request)
 
 @login_required
 def dashboard(request):
