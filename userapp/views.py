@@ -87,6 +87,8 @@ def approval_status(request, username):
         'username': username
     })
 
+
+
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -95,18 +97,29 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            if user.is_active:
-                login(request, user)
-                next_url = request.GET.get('next', 'user_dashboard')
-                return redirect(next_url)
-            else:
-                messages.error(request, "Your account is not approved yet.")
+            try:
+                user_profile = user.userprofile
+                if user_profile.is_approved:
+                    login(request, user)
+                    next_url = request.GET.get('next', 'user_dashboard')
+                    return redirect(next_url)
+                else:
+                    messages.error(request, "Your account is not approved yet.")
+                    return redirect('user_login')
+            except UserProfile.DoesNotExist:
+                messages.error(request, "User profile not found. Contact admin.")
                 return redirect('user_login')
         else:
-            messages.error(request, "Invalid credentials.")
+            messages.error(request, "Invalid username or password.")
             return redirect('user_login')
 
     return render(request, 'userapp/login.html')
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, "You have been logged out successfully.")
+    return redirect('user_login')
+
 
 @login_required(login_url='/user/login/')
 def user_dashboard(request):

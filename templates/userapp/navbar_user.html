@@ -13,23 +13,28 @@
 </head>
 
 <style>
-    .bgimg {
+     .bgimg {
         background-image: url("{% static 'images/home.jpg' %}");
-        /* Use static URL for image */
-        min-height: 100vh;
-        background-position: center;
         background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        width: 100%;
+        overflow-x: hidden;  /* Disable horizontal scroll */
+        overflow-y: auto;
+        
     }
 </style>
 
+
 <body class="bgimg" style="margin:0;">
     <div style="
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    
-    opacity: 0.9;
-    z-index: -1;">
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;  /* Disable horizontal scroll */
+        overflow-y: auto; ;">
     </div>
     <header>
         <nav class="navbar navbar-expand-lg bg-transparent" >
