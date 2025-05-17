@@ -3,81 +3,109 @@
 
 {% block content %}
 
+<style>
+    .custom-img {
+        width: 370px;
+        height: 300px;
+        margin: 20px 20px -20px 5px;
+    }
+
+    @media (min-width: 768px) {
+        .custom-img {
+            height: 450px;
+            width: 720px;
+        }
+    }
+
+    .custom-img1 {
+        width: 0px;
+        height: 0px;
+    }
+
+    @media (min-width: 768px) {
+        .custom-img1 {
+            height: 450px;
+            width: 725px;
+        }
+    }
+
+    .bg-gradient-opacity {
+        background: linear-gradient(135deg, rgba(0, 123, 255, 0.65), rgba(0, 255, 123, 0.65));
+    }
+</style>
+
 <section class="container-fluid ">
     <div class="row">
-        <div class="col-12 col-md-4 ">
-            <section class="container-fluid">
+        <div class="col-12 col-md-12 ">
+            <section class="px-2">
                 <div class="row">
-                    <row class="d-flex justify-content-start">
-                        <img src="{% static 'images\bpl.jpg' %}" alt="...." class="col-12 col-md-12 rounded-5"
-                            style=" margin: 20PX 20px -20px 0px; height: 420px; width: 620px;">
-                    </row>
+                    <div class="   col-md-6">
+                        <img src="{% static 'images/bpl.jpg' %}" alt="...." class="rounded-5 custom-img">
+                    </div>
+                    <div class=" d-flex justify-content-start col-md-6 pt-4">
+                        <img src="{% static 'images/bpl.jpg' %}" alt="...." class="rounded-5 custom-img1">
+                    </div>
                 </div>
             </section>
 
-            <section>
-                <div class="d-grid gap-2 container">
 
-                    <BR></BR>
-
-                </div>
-            </section>
 
         </div>
         <div class=" col-12 col-md-8 ">
             <section class="container-fluid">
                 <div class="row">
-                   
-                    
+
+
 
 
 
                 </div>
             </section>
         </div>
-        <div class=" col-12 col-md-12 ">
+        <div class=" col-12 col-md-12 pt-4">
             <section class="container-fluid">
                 <div class="row">
-                    <div class="col-4 col-md-2  ">
-                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
+                    <div class="col-4 col-md-2  pt-2">
+                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
                             <a href="{% url 'register_new' %}"><img src="{% static 'images\d1.png' %}"
                                     class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
                             <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">New user</H5>
                         </div>
                     </div>
-                    <div class="col-4 col-md-2 ">
-                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
-                            <a href="{% url 'admin:index' %}"><img src="{% static 'images\d2.png' %}"
+
+                    <div class="col-4 col-md-2  pt-2">
+                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
+                            <a href="{% url 'users list' %}"><img src="{% static 'images\d3.png' %}"
                                     class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">admin</H5>
+                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">Users list</H5>
                         </div>
                     </div>
-                    <div class="col-4 col-md-2  ">
-                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
-                            <a href=""><img src="{% static 'images\d3.png' %}"
-                                    class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">UNSOLD PLAYER LIST</H5>
+                    <div class="col-4 col-md-2 pt-2">
+                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
+                            <a href=""><img src="{% static 'images\d4.png' %}" class="card-img-top "
+                                    style="border-radius: 13PX;height:100PX;" alt=""></a>
+                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">Gallery</H5>
                         </div>
                     </div>
-                    <div class="col-4 col-md-2 ">
-                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
-                            <a href=""><img src="{% static 'images\d4.png' %}"
-                                    class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">SOLD PLAYER LIST</H5>
-                        </div>
-                    </div>
-                    <div class="col-4 col-md-2 ">
-                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
+                    <div class="col-4 col-md-2 pt-2">
+                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
                             <a href=""><img src="{% static 'images\d5.png' %}" class="card-img-top "
                                     style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">WALLET DETAILS</H5>
+                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">Events</H5>
                         </div>
                     </div>
-                    <div class="col-4 col-md-2 ">
-                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
+                    <div class="col-4 col-md-2 pt-2">
+                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
                             <a href=""><img src="{% static 'images\d6.png' %}" class="card-img-top "
                                     style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">EXPENSIVE PLAYER</H5>
+                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">Teachers</H5>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-2 pt-2">
+                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
+                            <a href="{% url 'admin:index' %}"><img src="{% static 'images\d2.png' %}"
+                                    class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
+                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">Admin</H5>
                         </div>
                     </div>
 

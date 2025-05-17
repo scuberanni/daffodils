@@ -1,0 +1,51 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="text-center mb-4">Registered Users</h2>
+
+<div class="container">
+    <div class="row">
+        {% for profile in users %}
+        <div class="col-6 col-md-2 mb-3">
+            <div class="card border-primary shadow rounded-4"
+                style="height: 300px; display: flex; flex-direction: column;">
+                <a href="{% url 'edit_user_profile' profile.id %}">
+                    {% if profile.photo %}
+                    <img src="{{ profile.photo.url }}" class="card-img-top rounded-top-4"
+                        style="height: 180px; object-fit: cover;" alt="User Photo">
+                    {% else %}
+                    <img src="{% static 'images/prp.png' %}" class="card-img-top rounded-top-4"
+                        style="height: 180px; object-fit: cover;" alt="Default Photo">
+                    {% endif %}
+                </a>
+                <div class="card-body text-center"
+                    style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+                    <h6 class="card-title"
+                        style="height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        {{ profile.user.get_full_name|default:profile.user.username }}
+                    </h6>
+                    <h6 class="card-title"
+                        style="height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        {{ profile.batch }}
+                    </h6>
+                    <p class="card-text mt-auto">
+                        Status:
+                        {% if profile.is_approved %}
+                        <span class="badge bg-success">Approved</span>
+                        {% else %}
+                        <a href="{% url 'approve_user' profile.id %}" style="color: rgb(255, 255, 255);"
+                            class="badge bg-danger mt-2">
+                            pending
+                        </a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No users found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

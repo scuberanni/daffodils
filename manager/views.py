@@ -3,9 +3,28 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from userapp.models import UserProfile
 from django.contrib.auth.models import User
-from django.contrib import messages
+from django.contrib import messages 
 from django.contrib import admin
 from django.http import HttpRequest
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+import urllib.parse
+import webbrowser  # for optional testing
+from django.shortcuts import get_object_or_404
+from django import forms
+
+
+
+from functools import wraps
+
+def daffodils_required(view_func):
+    @wraps(view_func)
+    @login_required
+    def _wrapped_view(request, *args, **kwargs):
+        if request.user.username == 'daffodils':
+            return view_func(request, *args, **kwargs)
+        return HttpResponseForbidden("Access denied: You are not authorized to view this page.")
+    return _wrapped_view
 
 
 
@@ -17,13 +36,11 @@ def home(request):
 def custom_admin_view(request: HttpRequest):
     return admin.site.admin_view(lambda req: req)(request)
 
-@login_required
+@daffodils_required
 def dashboard(request):
-    if request.user.username == 'daffodils':
-        return render(request, 'dashboard.html')
-    else:
-        return HttpResponseForbidden("Access denied: You are not authorized to view this page.")
+    return render(request, 'dashboard.html')
 
+@daffodils_required
 def register_new(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')
@@ -91,3 +108,66 @@ def register_new(request):
         return redirect('dashboard')
 
     return render(request, 'register_new.html')
+
+@daffodils_required
+def users_list(request):
+    users = UserProfile.objects.all().order_by('is_approved', 'batch')
+    return render(request, 'users_list.html', {'users': users})
+
+
+
+@daffodils_required
+def approve_user(request, user_id):
+    profile = get_object_or_404(UserProfile, id=user_id)
+
+    if not profile.is_approved:
+        profile.is_approved = True
+        profile.save()
+
+        # Send WhatsApp message (open WhatsApp Web with pre-filled message)
+        phone = profile.phone
+        message = urllib.parse.quote("Hi {}, your registration has been approved. Welcome! to daffodils".format(profile.user.first_name or profile.user.username))
+        whatsapp_url = f"https://wa.me/{phone}?text={message}"
+
+        # You can open the URL in a new tab for local testing (desktop)
+        # webbrowser.open(whatsapp_url)
+
+        messages.success(request, f"User '{profile.user.username}' approved successfully.")
+        return HttpResponseRedirect(whatsapp_url)  # Or redirect to user list after approval
+    else:
+        messages.info(request, "User is already approved.")
+        return redirect('users_list')
+    
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['phone', 'batch', 'n_adult', 'n_child', 'photo']
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'email']
+
+@daffodils_required
+def edit_user_profile(request, user_id):
+    profile = get_object_or_404(UserProfile, id=user_id)
+    user = profile.user
+
+    if request.method == 'POST':
+        u_form = UserForm(request.POST, instance=user)
+        p_form = UserProfileForm(request.POST, request.FILES, instance=profile)
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, 'User updated successfully.')
+            return redirect('users list')
+    else:
+        u_form = UserForm(instance=user)
+        p_form = UserProfileForm(instance=profile)
+
+    return render(request, 'edit_user.html', {
+        'u_form': u_form,
+        'p_form': p_form,
+        'profile': profile
+    })
