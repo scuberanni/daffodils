@@ -1,16 +1,18 @@
+{% extends 'userapp/blank_layout_user.html' %}
+
 {% load static %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
+        
 
         .profile-card {
             border-radius: 15px;
@@ -44,14 +46,19 @@
                     </div>
                     <div class="card-body p-4">
                         <div class="row g-4 align-items-center">
-                            <div class="col-12 col-md-4 text-center">
-                                {% if profile.photo %}
-                                <img src="{{ profile.photo.url }}" alt="User Photo" class="profile-photo img-fluid">
-                                {% else %}
-                                <img src="{% static 'images/default-user.png' %}" alt="Default"
-                                    class="profile-photo img-fluid">
-                                {% endif %}
+                            <div class="col-12 col-md-4 d-flex justify-content-center">
+                                <a href="{% url 'edit_profile' profile.id %}">
+                                    {% if profile.photo %}
+                                    <img src="{{ profile.photo.url }}" alt="User Photo"
+                                        class="profile-photo img-fluid mx-auto">
+                                    {% else %}
+                                    <img src="{% static 'images/default-user.png' %}" alt="Default"
+                                        class="profile-photo img-fluid mx-auto">
+                                    {% endif %}
+                                </a>
                             </div>
+
+
                             <div class="col-12 col-md-8">
                                 <div class="row">
                                     <div class="col-12 mb-6">
@@ -104,3 +111,4 @@
 </body>
 
 </html>
+{% endblock %}

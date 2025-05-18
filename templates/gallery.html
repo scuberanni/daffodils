@@ -1,0 +1,88 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="text-center mb-4">10 A</h2>
+
+<!-- Your HTML -->
+
+<div class="container my-4">
+  <div class="row justify-content-center">
+    {% for profile in teacher %}
+    <div class="col-6 col-md-2 d-flex flex-column align-items-center">
+      <div class="profile-card text-center">
+        <a href="{% url 'edit_user_profile' profile.id %}" title="{{ profile.name }}">
+          {% if profile.photo %}
+          <img src="{{ profile.photo.url }}" alt="{{ profile.name }} photo" class="photo-rounded" />
+          {% else %}
+          <img src="{% static 'images/prp.png' %}" alt="Default photo" class="photo-rounded" />
+          {% endif %}
+        </a>
+        <h4 class="mt-2 mb-0">Class Teacher</h4>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-center">No class teacher found.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    {% for profile in users %}
+    <div class="col-2 col-md-1 mb-1">
+      <div class="profile-card">
+        <a href="" title="{{ profile.name }}">
+          {% if profile.photo %}
+          <img src="{{ profile.photo.url }}" alt="{{ profile.name }} photo" class="photo-rounded" />
+          {% else %}
+          <img src="{% static 'images/prp.png' %}" alt="Default photo" class="photo-rounded" />
+          {% endif %}
+        </a>
+      </div>
+    </div>
+    {% empty %}
+    <p>No users found.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- CSS styles -->
+<style>
+  .profile-card {
+  border: 2px solid #007bff;
+  border-top-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+  overflow: hidden; /* required to clip contents */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  background-color: #fff;
+}
+
+  .profile-card:hover {
+    transform: scale(1.03);
+  }
+
+  .photo-rounded {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Round top-left and bottom-right only */
+    border-top-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    display: block;
+  }
+
+  /* Responsive tweak (optional) */
+  @media (max-width: 768px) {
+    .photo-rounded {
+      height: 80px;
+    }
+  }
+</style>
+
+{% endblock %}

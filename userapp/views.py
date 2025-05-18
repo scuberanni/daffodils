@@ -9,6 +9,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.decorators.http import require_GET
 from django.contrib.auth import authenticate, login, logout
+import urllib.parse
+import webbrowser  # for optional testing
+from django.shortcuts import get_object_or_404
+from django import forms
 
 def register(request):
     if request.method == 'POST':
@@ -134,3 +138,62 @@ def view_profile(request):
         return redirect('home')  # or show an error page 
 
     return render(request, 'userapp/view_profile.html', {'profile': profile})
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['phone', 'batch', 'n_adult', 'n_child', 'photo']
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'email']
+
+@login_required
+def edit_profile(request, user_id):
+    profile = get_object_or_404(UserProfile, id=user_id)
+    user = profile.user
+
+    if request.method == 'POST':
+        u_form = UserForm(request.POST, instance=user)
+        p_form = UserProfileForm(request.POST, request.FILES, instance=profile)
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, 'User updated successfully.')
+            return redirect('view_profile')
+    else:
+        u_form = UserForm(instance=user)
+        p_form = UserProfileForm(instance=profile)
+
+    return render(request, 'userapp/edit_profile.html', {
+        'u_form': u_form,
+        'p_form': p_form,
+        'profile': profile
+    })
+
+@login_required
+def user_detail(request, profile_id):
+    profile = get_object_or_404(UserProfile, id=profile_id)
+    return render(request, 'userapp/user_detail.html', {'profile': profile})
+
+@login_required
+def user_class_a(request):
+    users = UserProfile.objects.filter(batch="10A", is_approved=True)
+    return render(request, 'userapp/class.html', {'users': users})
+
+@login_required
+def user_class_b(request):
+    users = UserProfile.objects.filter(batch="10B", is_approved=True)
+    return render(request, 'userapp/class.html', {'users': users})
+
+@login_required
+def user_class_c(request):
+    users = UserProfile.objects.filter(batch="10C", is_approved=True) 
+    return render(request, 'userapp/class.html', {'users': users})
+
+@login_required
+def user_class_d(request):
+    users = UserProfile.objects.filter(batch="10D", is_approved=True)
+    return render(request, 'userapp/class.html', {'users': users})

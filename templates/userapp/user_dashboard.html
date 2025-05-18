@@ -1,66 +1,253 @@
-
 {% extends 'userapp/blank_layout_user.html' %}
 {% load static %}
 
 {% block content %}
 
+<style>
+    .bg-image {
+        /* Behind the links */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-top-left-radius: 1rem !important;
+        /* keep original for top corners */
+        border-top-right-radius: 1rem !important;
+    }
+
+    /* Mobile height */
+    @media (max-width: 767px) {
+        .bg-image {
+            height: 230px;
+            /* Smaller height on mobile */
+        }
+    }
+
+    .bg-image1 img.rounded-5 {
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
+    .custom-img {
+        width: 370px;
+        height: 300px;
+        margin: 20px 20px -20px 5px;
+    }
+
+    @media (min-width: 768px) {
+        .custom-img {
+            height: 300px;
+            width: 720px;
+        }
+    }
+
+    .bg-image1 {
+        width: 100%;
+        height: 450px;
+        /* Default desktop height */
+        object-fit: cover;
+        border-radius: 1rem;
+        display: block;
+        margin: 0 auto;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    /* Mobile height */
+    @media (max-width: 767px) {
+        .bg-image1 {
+            height: 230px;
+            /* Smaller height on mobile */
+        }
+    }
+
+    .bg-image img.rounded-5 {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+    }
+
+    .custom-img1 {
+        width: 0px;
+        height: 0px;
+    }
+
+    @media (min-width: 768px) {
+        .custom-img1 {
+            height: 450px;
+            width: 725px;
+        }
+    }
+
+    .bg-gradient-opacity {
+        background: linear-gradient(135deg, rgba(0, 123, 255, 0.65), rgba(0, 255, 123, 0.65));
+    }
+
+    .background-area {
+        background-image: url("{% static 'images/bpl.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        height: 550px;
+        position: relative;
+        border-radius: 20px;
+    }
+
+    @media (max-width: 767px) {
+        .background-area {
+            background-position: right center;
+            /* change to right alignment on mobile */
+        }
+    }
+
+    .link-dot {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        line-height: 30px;
+        border-radius: 50%;
+        font-weight: bold;
+        text-decoration: none;
+        transition: transform 0.2s;
+    }
+
+
+    /* Desktop positions (default) */
+    .dot1 {
+        top: 395px;
+        left: 220px;
+        opacity: 0%;
+
+    }
+
+    .dot2 {
+        top: 395px;
+        left: 320px;
+        opacity: 0%;
+    }
+
+    .dot3 {
+        top: 390px;
+        left: 512px;
+        opacity: 0%;
+    }
+
+    .dot4 {
+        top: 390px;
+        left: 585px;
+        opacity: 0%;
+    }
+
+    .dot5 {
+        top: 390px;
+        left: 655px;
+        opacity: 0%;
+    }
+
+    /* Mobile positions */
+    @media (max-width: 767px) {
+        .dot1 {
+            top: 200px;
+            left: 110px;
+            opacity: 0%;
+        }
+
+        .dot2 {
+            top: 200px;
+            left: 160px;
+            opacity: 0%;
+        }
+
+        .dot3 {
+            top: 195px;
+            left: 260px;
+            opacity: 0%;
+        }
+
+        .dot4 {
+            top: 195px;
+            left: 298px;
+            opacity: 0%;
+        }
+
+        .dot5 {
+            top: 195px;
+            left: 335px;
+            opacity: 0%;
+        }
+    }
+</style>
+
 <section class="container-fluid ">
     <div class="row">
-        <div class="col-12 col-md-4 ">
-            <section class="container-fluid">
-                <div class="row">
-                    <row class="d-flex justify-content-start">
-                        <img src="{% static 'images\bpl.jpg' %}" alt="...." class="col-12 col-md-12 rounded-5"
-                            style=" margin: 20PX 20px -20px 0px; height: 550px;">
-                    </row>
+
+        <div class="col-12 col-md-6 ">
+            <section class="container-fluid ">
+                <div class="position-relative d-flex justify-content-center align-items-center bg-image1">
+                    <img src="{% static 'images/bpl2.jpg' %}" alt="..." class="col-12 col-md-12 rounded-5"
+                        style="height: 100%; ">
+
+
                 </div>
             </section>
 
-            <section>
-                <div class="d-grid gap-2 container">
+            <section class="pt-1">
 
-                    <BR></BR>
-
-                </div>
             </section>
 
         </div>
-        <div class=" col-12 col-md-8 ">
-            <section class="container-fluid">
-                <div class="row">
-                   
-                    
 
+        <div class="col-12 col-md-6 ">
+            <section class="container-fluid ">
+                <div class="position-relative d-flex justify-content-center align-items-center bg-image">
+                    <img src="{% static 'images/bpl.jpg' %}" alt="..." class="col-12 col-md-12 rounded-5"
+                        style="height: 100%; object-fit: cover;">
 
-
+                    <!-- Each link gets a class for identification -->
+                    <a href="{% url 'class_d' %}" class="link-dot dot1">1</a>
+                    <a href="#" class="link-dot dot2">2</a>
+                    <a href="{% url 'class_c' %}" class="link-dot dot3">3</a>
+                    <a href="{% url 'class_b' %}" class="link-dot dot4">4</a>
+                    <a href="{% url 'class_a' %}" class="link-dot dot5">5</a>
                 </div>
             </section>
+
+            <section class="pt-2">
+
+            </section>
+
         </div>
+
         <div class=" col-12 col-md-12 ">
             <section class="container-fluid">
                 <div class="row">
-                    <div class="col-4 col-md-2  ">
-                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
+                    <div class="col-4 col-md-2  pt-2">
+                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
                             <a href="{% url 'view_profile' %}"><img src="{% static 'images\d11.png' %}"
                                     class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: aliceblue;">Profile</H5>
+                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">View Profile</H5>
                         </div>
                     </div>
-                    <div class="col-4 col-md-2 ">
-                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
-                            <a href=""><img src="{% static 'images\P1.png' %}"
+                    <div class="col-4 col-md-2  pt-2">
+                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
+                            <a href="{% url 'view_profile' %}"><img src="{% static 'images\d11.png' %}"
                                     class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: aliceblue;"></H5>
+                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">View Profile</H5>
                         </div>
                     </div>
-                    <div class="col-4 col-md-2  ">
-                        <div class="card rounded-4 border bg-transparent border-primary border-3 px-0 ">
-                            <a href=""><img src="{% static 'images\P7.png' %}"
+                    <div class="col-4 col-md-2  pt-2">
+                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
+                            <a href="{% url 'view_profile' %}"><img src="{% static 'images\d11.png' %}"
                                     class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: aliceblue;"></H5>
+                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">View Profile</H5>
                         </div>
                     </div>
-                    
+
 
 
 
@@ -76,5 +263,3 @@
 
 
 {% endblock %}
-
-
