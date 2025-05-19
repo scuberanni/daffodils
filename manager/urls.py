@@ -11,4 +11,7 @@ urlpatterns = [
     path('gallery/', views.gallery, name='gallery'), 
     path('approve/<int:user_id>/', views.approve_user, name='approve_user'),
     path('edit/<int:user_id>/', views.edit_user_profile, name='edit_user_profile'),
+    path('teachers/', views.teachers, name='teachers'), 
+    path('add-teacher/', views.add_teacher_profile, name='add_teacher_profile'),
+    path('teacher/edit/<int:pk>/', views.edit_teacher_profile, name='edit_teacher_profile'),
 ]

@@ -1,0 +1,64 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        width: 400px;
+        margin: 10px auto;
+        background: rgb(220, 243, 201);
+        border-radius: 10px; 
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form p {
+        margin-bottom: 15px;
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-top: 5px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container">
+    <h2>Edit Teacher Profile</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="submit-btn">Save Changes</button>
+    </form>
+</div>
+
+{% endblock %}

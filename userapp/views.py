@@ -4,7 +4,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile
+from .models import UserProfile,TeacherProfile
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.decorators.http import require_GET
@@ -179,21 +179,34 @@ def user_detail(request, profile_id):
     return render(request, 'userapp/user_detail.html', {'profile': profile})
 
 @login_required
+def teacher_detail(request, profile_id):
+    profile = get_object_or_404(TeacherProfile, id=profile_id)
+    return render(request, 'userapp/user_detail.html', {'profile': profile})
+
+def all_teachers(request):
+    users = TeacherProfile.objects.all()
+    return render(request, 'userapp/all_teachers.html', {'users': users})
+
+@login_required
 def user_class_a(request):
+    teacher = TeacherProfile.objects.filter(batch="10A")
     users = UserProfile.objects.filter(batch="10A", is_approved=True)
-    return render(request, 'userapp/class.html', {'users': users})
+    return render(request, 'userapp/class.html', {'users': users,'teacher': teacher})
 
 @login_required
 def user_class_b(request):
+    teacher = TeacherProfile.objects.filter(batch="10B")
     users = UserProfile.objects.filter(batch="10B", is_approved=True)
-    return render(request, 'userapp/class.html', {'users': users})
+    return render(request, 'userapp/class.html', {'users': users,'teacher': teacher})
 
 @login_required
 def user_class_c(request):
+    teacher = TeacherProfile.objects.filter(batch="10C")
     users = UserProfile.objects.filter(batch="10C", is_approved=True) 
-    return render(request, 'userapp/class.html', {'users': users})
+    return render(request, 'userapp/class.html', {'users': users,'teacher': teacher})
 
 @login_required
 def user_class_d(request):
+    teacher = TeacherProfile.objects.filter(batch="10D")
     users = UserProfile.objects.filter(batch="10D", is_approved=True)
-    return render(request, 'userapp/class.html', {'users': users})
+    return render(request, 'userapp/class.html', {'users': users,'teacher': teacher})

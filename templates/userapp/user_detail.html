@@ -5,18 +5,20 @@
 <div id="profile-data" data-batch="{{ profile.batch }}" class="container my-5">
   <div class="p-4 shadow-lg rounded">
     <div class="row align-items-center">
-      <div class="col-md-4 text-center mb-3 mb-md-0">
+      <div class="col-md-6 text-center mb-3 mb-md-0">
         {% if profile.photo %}
           <img src="{{ profile.photo.url }}" alt="User Photo" class="img-fluid border profile-img">
         {% else %}
           <img src="{% static 'images/prp.png' %}" alt="Default Photo" class="img-fluid border profile-img">
         {% endif %}
       </div>
-      <div class="col-md-8">
-        <h2 class="text-primary">{{ profile.user.first_name|upper }} {{ profile.user.last_name }}</h2>
+      <div class="col-md-6">
+        <h2 style=" font-weight: bold;" class="text-primary">{{ profile.user.first_name|upper }} {{ profile.user.last_name }}</h2>
+        <h2 style=" font-weight: bold;" class="text-primary"> {{ profile.name}}</h2>
         <h5 class="text-muted">{{ profile.user.email }}</h5>
         <p><strong>Phone:</strong> {{ profile.phone }}</p>
         <p><strong>Batch:</strong> {{ profile.batch }}</p>
+        <p><strong></strong> {{ profile.address }}</p>
         <a href="#" id="back-link" class="btn btn-outline-primary mt-3">← Back to Class List</a>
       </div>
     </div>
@@ -25,14 +27,16 @@
 
 <style>
   .profile-img {
-    max-width: 250px;
+    max-width: 500px;
+    max-height: 500px;
     height: auto;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   }
 
   @media (max-width: 768px) {
     .profile-img {
-      max-width: 180px;
+      max-width: 350px;
+      max-height: 350px;
     }
   }
 </style>

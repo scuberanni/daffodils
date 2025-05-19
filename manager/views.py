@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-from userapp.models import UserProfile
+from userapp.models import UserProfile,TeacherProfile
 from django.contrib.auth.models import User
 from django.contrib import messages 
 from django.contrib import admin
@@ -11,7 +11,8 @@ from django.urls import reverse
 import urllib.parse
 import webbrowser  # for optional testing
 from django.shortcuts import get_object_or_404
-from django import forms
+from django import forms 
+from userapp.forms import TeacherProfileForm
 
 
 
@@ -119,8 +120,6 @@ def gallery(request):
     users = UserProfile.objects.all().order_by('batch')[:50]  # limit to first 50
     return render(request, 'gallery.html', {'users': users})
 
-
-
 @daffodils_required
 def approve_user(request, user_id):
     profile = get_object_or_404(UserProfile, id=user_id)
@@ -176,3 +175,33 @@ def edit_user_profile(request, user_id):
         'p_form': p_form,
         'profile': profile
     })
+
+@daffodils_required
+def teachers(request):
+    users = TeacherProfile.objects.all()
+    return render(request, 'teacher.html', {'users': users})
+
+@daffodils_required
+def add_teacher_profile(request):
+    if request.method == 'POST':
+        form = TeacherProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('teachers')  # replace with your success page/view name
+    else:
+        form = TeacherProfileForm()
+    return render(request, 'add_teacher_profile.html', {'form': form})
+
+@daffodils_required
+def edit_teacher_profile(request, pk):
+    teacher = get_object_or_404(TeacherProfile, pk=pk)
+    
+    if request.method == 'POST':
+        form = TeacherProfileForm(request.POST, request.FILES, instance=teacher)
+        if form.is_valid():
+            form.save()
+            return redirect('teachers')  # Adjust this to your main teacher list view
+    else:
+        form = TeacherProfileForm(instance=teacher)
+    
+    return render(request, 'edit_teacher.html', {'form': form, 'teacher': teacher})

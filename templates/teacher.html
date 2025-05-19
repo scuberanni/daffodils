@@ -1,0 +1,90 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="text-center mb-4">Teachers</h2>
+
+<!-- Your HTML -->
+
+
+
+
+<div class="container " >
+  <div class="row">
+    {% for profile in users %}
+    <div class="col-4 col-md-2">
+      <div class="profile-card">
+        <a href="{% url 'edit_teacher_profile' profile.pk %}" title="{{ profile.name }}">
+          {% if profile.photo %}
+          <img src="{{ profile.photo.url }}" alt="{{ profile.name }} photo" class="photo-rounded" />
+          {% else %}
+          <img src="{% static 'images/prp.png' %}" alt="Default photo" class="photo-rounded" />
+          {% endif %}
+        </a>
+      </div>
+      <p style="text-align: center; font-weight: bold;">{{ profile.name }}</p>
+
+    </div>
+    {% empty %}
+    <p>No teachers found.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="container pt-2 ">
+  <div class="row">
+    <div class="col-2 col-md-2">
+      <div class="profile-card">
+        <a href="{% url 'add_teacher_profile' %}"><img src="{% static 'images\d66.png' %}" class="card-img-top "
+            style="border-radius: 13PX;" alt=""></a>
+            
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CSS styles -->
+<style>
+  .profile-card {
+    border: 2px solid #007bff;
+    border-top-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    overflow: hidden;
+    /* required to clip contents */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    background-color: #fff;
+    width: 100%;
+    height: 200PX;
+  }
+
+  .profile-card:hover {
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 768px) {
+    .profile-card {
+      height: 130px;
+      width: 120PX;
+    }
+  }
+
+  .photo-rounded {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Round top-left and bottom-right only */
+    border-top-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    display: block;
+  }
+
+  /* Responsive tweak (optional) */
+  
+</style>
+
+{% endblock %}

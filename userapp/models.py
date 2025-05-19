@@ -17,4 +17,20 @@ class UserProfile(models.Model):
 
     is_approved = models.BooleanField(default=False)
 
+class TeacherProfile(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    phone = models.CharField(max_length=15, default='+91')
+    address = models.CharField(max_length=100, blank=True, null=True)
+    batch = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        choices=[
+            ('10A', '10A'), ('10B', '10B'), ('10C', '10C'),
+            ('10D', '10D'), ('Other', 'Other')
+        ]
+    )
+    photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
+
+
 

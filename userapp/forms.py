@@ -7,3 +7,14 @@ class UserRegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
+
+
+from .models import TeacherProfile
+
+class TeacherProfileForm(forms.ModelForm):
+    class Meta:
+        model = TeacherProfile
+        fields = ['name', 'phone', 'address', 'batch', 'photo']
+        widgets = {
+            'batch': forms.Select(attrs={'class': 'form-control'}),
+        }
