@@ -36,7 +36,7 @@
 
         .signin {
             width: 250px;
-            height: 310px;
+            height: 255px;
             margin: 40px auto;
             padding: 20px;
             background-color: rgba(0, 0, 0, 0.1);
@@ -158,20 +158,34 @@
             <input type="password" style="display:none">
 
             <!-- Username -->
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit">
-            </form>
+            <div class="inputrow">
+                <input type="text" name="username" id="username" autocomplete="off" required placeholder="Username" />
+                <label class="ion-person" for="username"></label>
+            </div>
+
+            <!-- Password -->
+            <div class="inputrow">
+                <input type="password" name="password" id="password" autocomplete="new-password" required
+                    placeholder="Password" />
+                <label class="ion-locked" for="password"></label>
+            </div>
 
             <!-- Submit Button -->
-            
+            <input type="submit" value="Login">
         </form>
     </div>
 
     <!-- Messages -->
+    {% if messages %}
+    <ul class="messages" style="text-align: center; list-style: none; padding: 0;">
+        {% for message in messages %}
+        <li style="color: red; font-weight: bold;">{{ message }}</li>
+        {% endfor %}
+    </ul>
+
     
+    {% endif %}
+
 </body>
 
 </html>
-

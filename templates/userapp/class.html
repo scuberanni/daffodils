@@ -22,7 +22,7 @@
           <img src="{% static 'images/prp.png' %}" alt="Default photo" class="photo-rounded" />
           {% endif %}
         </a>
-        <h4 class="mt-2 mb-0">Class Teacher</h4>
+        <h4 class="mt-2 mb-0">Class Teacher</h4><h2 class="text-center mb-4">{{ profile.name }}</h2>
       </div>
     </div>
     {% empty %}
@@ -63,7 +63,14 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
   background-color: #fff;
+  width: 100px;
 }
+@media (max-width: 768px) {
+    .profile-card {
+      height: 80px;
+      width: 65px;
+    }
+  }
 
   .profile-card:hover {
     transform: scale(1.03);

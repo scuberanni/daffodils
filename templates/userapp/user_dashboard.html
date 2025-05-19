@@ -119,21 +119,21 @@
 
     /* Desktop positions (default) */
     .dot1 {
-        top: 395px;
-        left: 220px;
+        top: 325px;
+        left: 655px;
         opacity: 0%;
 
     }
 
     .dot2 {
         top: 395px;
-        left: 320px;
+        left: 430px;
         opacity: 0%;
     }
 
     .dot3 {
         top: 390px;
-        left: 512px;
+        left: 655px;
         opacity: 0%;
     }
 
@@ -144,28 +144,28 @@
     }
 
     .dot5 {
-        top: 390px;
-        left: 655px;
+        top: 325px;
+        left: 425px;
         opacity: 0%;
     }
 
     /* Mobile positions */
     @media (max-width: 767px) {
         .dot1 {
-            top: 200px;
-            left: 110px;
+            top: 160px;
+            left: 335px;
             opacity: 0%;
         }
 
         .dot2 {
-            top: 200px;
-            left: 160px;
+            top: 199px;
+            left: 215px;
             opacity: 0%;
         }
 
         .dot3 {
-            top: 195px;
-            left: 260px;
+            top: 193px;
+            left: 335px;
             opacity: 0%;
         }
 
@@ -176,8 +176,8 @@
         }
 
         .dot5 {
-            top: 195px;
-            left: 335px;
+            top: 160px;
+            left: 215px;
             opacity: 0%;
         }
     }
@@ -196,7 +196,7 @@
                 </div>
             </section>
 
-            <section class="pt-1">
+            <section class="pt-">
 
             </section>
 
@@ -211,9 +211,9 @@
                     <!-- Each link gets a class for identification -->
                     <a href="{% url 'class_d' %}" class="link-dot dot1">1</a>
                     <a href="#" class="link-dot dot2">2</a>
-                    <a href="{% url 'class_c' %}" class="link-dot dot3">3</a>
-                    <a href="{% url 'class_b' %}" class="link-dot dot4">4</a>
-                    <a href="{% url 'class_a' %}" class="link-dot dot5">5</a>
+                    <a href="{% url 'class_a' %}" class="link-dot dot3">3</a>
+                    <a href="{% url 'class_c' %}" class="link-dot dot4">4</a>
+                    <a href="{% url 'class_b' %}" class="link-dot dot5">5</a>
                 </div>
             </section>
 
