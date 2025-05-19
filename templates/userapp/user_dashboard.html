@@ -22,7 +22,7 @@
     /* Mobile height */
     @media (max-width: 767px) {
         .bg-image {
-            height: 230px;
+            height: 170px;
             /* Smaller height on mobile */
         }
     }
@@ -40,7 +40,7 @@
 
     @media (min-width: 768px) {
         .custom-img {
-            height: 300px;
+            height: 200px;
             width: 720px;
         }
     }
@@ -60,7 +60,7 @@
     /* Mobile height */
     @media (max-width: 767px) {
         .bg-image1 {
-            height: 230px;
+            height: 350px;
             /* Smaller height on mobile */
         }
     }
@@ -104,8 +104,8 @@
 
     .link-dot {
         position: absolute;
-        width: 30px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
         background-color: #007bff;
         color: white;
         text-align: center;
@@ -119,65 +119,65 @@
 
     /* Desktop positions (default) */
     .dot1 {
-        top: 325px;
-        left: 655px;
+        top: 85px;
+        left: 560px;
         opacity: 0%;
 
     }
 
     .dot2 {
-        top: 395px;
-        left: 430px;
+        top: 300px;
+        left: 95px;
         opacity: 0%;
     }
 
     .dot3 {
-        top: 390px;
-        left: 655px;
+        top: 300px;
+        left: 570px;
         opacity: 0%;
     }
 
     .dot4 {
-        top: 390px;
-        left: 585px;
+        top: 300px;
+        left: 415px;
         opacity: 0%;
     }
 
     .dot5 {
-        top: 325px;
-        left: 425px;
+        top: 90px;
+        left: 95px;
         opacity: 0%;
     }
 
     /* Mobile positions */
     @media (max-width: 767px) {
         .dot1 {
-            top: 160px;
-            left: 335px;
+            top: 15px;
+            left: 280px;
             opacity: 0%;
         }
 
         .dot2 {
-            top: 199px;
-            left: 215px;
+            top: 100px;
+            left: 45px;
             opacity: 0%;
         }
 
         .dot3 {
-            top: 193px;
-            left: 335px;
+            top: 96px;
+            left: 290px;
             opacity: 0%;
         }
 
         .dot4 {
-            top: 195px;
-            left: 298px;
+            top: 97px;
+            left: 200px;
             opacity: 0%;
         }
 
         .dot5 {
-            top: 160px;
-            left: 215px;
+            top: 20px;
+            left: 35px;
             opacity: 0%;
         }
     }
@@ -189,7 +189,7 @@
         <div class="col-12 col-md-6 ">
             <section class="container-fluid ">
                 <div class="position-relative d-flex justify-content-center align-items-center bg-image1">
-                    <img src="{% static 'images/bpl2.jpg' %}" alt="..." class="col-12 col-md-12 rounded-5"
+                    <img src="{% static 'images/bpl.jpg' %}" alt="..." class="col-12 col-md-12 rounded-5"
                         style="height: 100%; ">
 
 
@@ -205,8 +205,8 @@
         <div class="col-12 col-md-6 ">
             <section class="container-fluid ">
                 <div class="position-relative d-flex justify-content-center align-items-center bg-image">
-                    <img src="{% static 'images/bpl.jpg' %}" alt="..." class="col-12 col-md-12 rounded-5"
-                        style="height: 100%; object-fit: cover;">
+                    <img src="{% static 'images/bpl4.jpg' %}" alt="..." class="col-12 col-md-12 rounded-5"
+                        style="height: 100%; ">
 
                     <!-- Each link gets a class for identification -->
                     <a href="{% url 'class_d' %}" class="link-dot dot1">1</a>
