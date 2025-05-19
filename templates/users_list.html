@@ -2,10 +2,51 @@
 {% load static %}
 
 {% block content %}
-<h2 class="text-center mb-4">Registered Users</h2>
+
+<style>
+    .nav-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.nav-button {
+    display: inline-block;
+    background-color: #000000;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #8ef093;
+}
+
+.nav-button1 {
+            align-items: center;
+            background: linear-gradient(to right, #8de4ef, #ceeef2);
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+</style>
+
+<div class="nav-container">
+    <a href="{% url 'dashboard' %}" class="nav-button">Back to Home</a>
+    <a href="{% url 'table' %}" class="nav-button">View Chart</a>
+</div>
+
+
 
 <div class="container">
-    <div class="row">
+    <h2 class="text-center nav-button1">Registered Users</h2>
+    <div class="row pt-2">
         {% for profile in users %}
         <div class="col-6 col-md-2 mb-3">
             <div class="card border-primary shadow rounded-4"

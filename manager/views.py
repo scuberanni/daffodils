@@ -205,3 +205,8 @@ def edit_teacher_profile(request, pk):
         form = TeacherProfileForm(instance=teacher)
     
     return render(request, 'edit_teacher.html', {'form': form, 'teacher': teacher})
+
+@daffodils_required
+def table(request): 
+    profiles = UserProfile.objects.all().order_by('batch')
+    return render(request, 'table.html', {'profiles': profiles})

@@ -1,0 +1,207 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 30px auto;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: linear-gradient(to right, #8de4ef, #ceeef2);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        tbody tr {
+            background: linear-gradient(to right, #c0eff6, #ebf3ec);
+        }
+
+
+
+        tbody tr:hover {
+            background: linear-gradient(to right, #dcedc8, #b2ebf2);
+        }
+
+        .t1 {
+
+            /* 10px top/bottom, auto left/right centers the table horizontally */
+
+            text-align: center;
+            /* Make table behave like block element so margin auto works */
+        }
+    </style>
+</head>
+
+<body class="">
+
+    <style>
+        .nav-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background-color: #0a0a0a;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button1 {
+            align-items: center;
+            background: linear-gradient(to right, #8de4ef, #ceeef2);
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #388e3c;
+        }
+    </style>
+
+    <div class="nav-container">
+        <a href="{% url 'dashboard' %}" class="nav-button">Back to Home</a>
+        <a href="{% url 'users list' %}" class="nav-button">Back to users list</a>
+    </div>
+
+    <div class="container">
+        <h2 class="nav-button1 ">Participating Details</h2>
+
+        <table class="t1 container">
+            <thead>
+                <tr>
+                    <th>SL No.</th>
+                    <th>Name</th>
+                    <th>B</th>
+                    <th>Child</th>
+                    <th>Adults</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profile in profiles %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ profile.user.first_name|upper }}</td>
+                    <td>{{ profile.batch }}</td>
+                    <td>{{ profile.n_child|default:"0" }}</td>
+                    <td>{{ profile.n_adult|default:"0" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No user profiles available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <!-- JS will populate totals here -->
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const table = document.querySelector('table');
+            let totalChildren = 0;
+            let totalAdults = 0;
+
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const children = parseInt(row.cells[3].textContent) || 0;
+                const adults = parseInt(row.cells[4].textContent) || 0;
+                totalChildren += children;
+                totalAdults += adults;
+            });
+
+            const grandTotal = totalChildren + totalAdults;
+
+            const tfoot = table.querySelector('tfoot');
+            tfoot.innerHTML = '';
+
+            // First footer row: Total Children and Adults
+            const totalsRow = document.createElement('tr');
+
+            // SL No.
+            const slCell = document.createElement('th');
+            slCell.textContent = '#';
+            totalsRow.appendChild(slCell);
+
+            // "Total:" spanning Name + Batch
+            const totalLabelCell = document.createElement('th');
+            totalLabelCell.setAttribute('colspan', 2);
+            totalLabelCell.style.textAlign = 'right';
+            totalLabelCell.textContent = 'Total:';
+            totalsRow.appendChild(totalLabelCell);
+
+            const childrenCell = document.createElement('th');
+            childrenCell.textContent = totalChildren;
+            totalsRow.appendChild(childrenCell);
+
+            const adultsCell = document.createElement('th');
+            adultsCell.textContent = totalAdults;
+            totalsRow.appendChild(adultsCell);
+
+            tfoot.appendChild(totalsRow);
+
+            // Second footer row: Grand Total below all except final cell
+            const grandTotalRow = document.createElement('tr');
+
+            // Empty cell for SL No.
+            const emptyCell = document.createElement('th');
+            emptyCell.textContent = '#';
+            grandTotalRow.appendChild(emptyCell);
+
+            // Merged cell for "Grand Total:"
+            const labelCell = document.createElement('th');
+            labelCell.setAttribute('colspan', 3);
+            labelCell.style.textAlign = 'right';
+            labelCell.textContent = 'Grand Total:';
+            grandTotalRow.appendChild(labelCell);
+
+            // Final cell for grand total number
+            const totalCell = document.createElement('th');
+            totalCell.textContent = grandTotal;
+            totalCell.style.textAlign = 'center';
+            grandTotalRow.appendChild(totalCell);
+
+            tfoot.appendChild(grandTotalRow);
+        });
+    </script>
+
+
+
+
+
+</body>
+
+</html>
+
+
+{% endblock %}

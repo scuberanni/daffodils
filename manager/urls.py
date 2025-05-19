@@ -14,4 +14,5 @@ urlpatterns = [
     path('teachers/', views.teachers, name='teachers'), 
     path('add-teacher/', views.add_teacher_profile, name='add_teacher_profile'),
     path('teacher/edit/<int:pk>/', views.edit_teacher_profile, name='edit_teacher_profile'),
+    path('table/', views.table, name='table'),
 ]
