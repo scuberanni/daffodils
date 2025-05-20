@@ -15,4 +15,9 @@ urlpatterns = [
     path('add-teacher/', views.add_teacher_profile, name='add_teacher_profile'),
     path('teacher/edit/<int:pk>/', views.edit_teacher_profile, name='edit_teacher_profile'),
     path('table/', views.table, name='table'),
+    path('event/', views.event, name='event'),
+    path('add_event/', views.add_event, name='add_event'),
+    path('register_event/', views.register_event, name='register_event'),
+    path('add_event_photo/', views.add_event_photo, name='add_event_photo'),
+    path('photos/', views.photos, name='photos'),
 ]

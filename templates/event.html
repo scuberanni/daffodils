@@ -9,26 +9,25 @@
 
 
 <div class="container pt-4">
-    <a style="text-decoration: none;" href="{% url 'add_event_photo' %}"><h2 class="text-center nav-button1">Upload new photos</h2></a>
-    <a style="text-decoration: none;" href="{% url 'add_event' %}"><h2 class="text-center nav-button1">Upload new videos</h2></a>
+    <a style="text-decoration: none;" href="{% url 'add_event' %}"><h2 class="text-center nav-button1">Create a new Event</h2></a>
     <div class="row">
-        <div class="col-12 col-md-6">
-            <div class="profile-card mt-2">
-                <a href="{% url 'photos' %}" >
-                    <img src="{% static 'images\d5.png' %}" alt="{{ profile.name }} photo" class="photo-rounded" />
+        {% for profile in profiles %}
+        <div class="col-12 col-md-4">
+            <div class="profile-card">
+                <a href="" title="{{ profile.name }}">
+                    {% if profile.photo %}
+                    <img src="{{ profile.photo.url }}" alt="{{ profile.name }} photo" class="photo-rounded" />
+                    {% else %}
+                    <img src="{% static 'images/prp.png' %}" alt="Default photo" class="photo-rounded" />
+                    {% endif %}
                 </a>
             </div>
-            <h3 class="bg-info rounded-4 mt-1" style="text-align: center;font-weight: bold;font-size: 30px; color: #000000;">Photos</h3>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="profile-card mt-2">
-                <a href="" >
-                    <img src="{% static 'images\d5.png' %}" alt="{{ profile.name }} photo" class="photo-rounded " />
-                </a>
-            </div>
-            <h3 class="bg-warning rounded-4 mt-1" style="text-align: center;font-weight: bold;font-size: 30px; color: #000000;">Videos</h3>
             <h2 class="pb-2" style="text-align: center; font-weight: bold;">{{ profile.name }}</h2>
+
         </div>
+        {% empty %}
+        <p>No events found.</p>
+        {% endfor %}
     </div>
 </div>
 

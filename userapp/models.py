@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
     
@@ -31,6 +32,21 @@ class TeacherProfile(models.Model):
         ]
     )
     photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
+
+class events(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+class EventPhoto(models.Model):
+    updated_date = models.DateTimeField(default=timezone.now)
+    event = models.ForeignKey(events, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='event_photos/')
+
+    def __str__(self):
+        return f"{self.event.name} - {self.updated_date.strftime('%Y-%m-%d %H:%M')}"
 
 
 

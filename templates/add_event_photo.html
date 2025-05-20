@@ -1,0 +1,131 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        /* your existing CSS */
+
+        .wrapper {
+            margin: 20px auto;
+            max-width: 700px;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .input-field {
+            border-bottom: 2px solid #999;
+            margin: 15px 0;
+        }
+
+        .input-field input,
+        .input-field select,
+        .input-field label {
+            width: 100%;
+            height: 30px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: #222;
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+
+        button {
+            background: #0ea31d;
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 16px;
+            border: 2px solid transparent;
+            transition: 0.3s ease;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: rgba(14, 163, 29, 0.85);
+        }
+
+        .messages {
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .messages li {
+            color: red;
+            font-weight: 600;
+            list-style: none;
+        }
+
+        /* Override Django form default p styling */
+        form p {
+            margin: 15px 0;
+            border-bottom: 2px solid #999;
+            padding-bottom: 5px;
+        }
+
+        form p label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        form p input,
+        form p select {
+            width: 100%;
+            height: 30px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: #222;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'add_event_photo' %}">
+            {% csrf_token %}
+            <div >
+                event
+            </div>
+            <div class="input-field">
+                {{ form.event }}
+            </div>
+            <div class="input-field">
+                {{ form.photo }}
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+
+</html>
+{% endblock %}

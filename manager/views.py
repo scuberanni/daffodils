@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-from userapp.models import UserProfile,TeacherProfile
+from userapp.models import UserProfile,TeacherProfile,events,EventPhoto
 from django.contrib.auth.models import User
 from django.contrib import messages 
 from django.contrib import admin
@@ -12,7 +12,7 @@ import urllib.parse
 import webbrowser  # for optional testing
 from django.shortcuts import get_object_or_404
 from django import forms 
-from userapp.forms import TeacherProfileForm
+from userapp.forms import TeacherProfileForm,EventPhotoForm
 
 
 
@@ -210,3 +210,48 @@ def edit_teacher_profile(request, pk):
 def table(request): 
     profiles = UserProfile.objects.all().order_by('batch')
     return render(request, 'table.html', {'profiles': profiles})
+
+@daffodils_required
+def event(request): 
+    profiles = events.objects.all()
+    return render(request, 'event.html', {'profiles': profiles})
+
+@daffodils_required
+def add_event(request): 
+    return render(request, 'add_event.html')
+
+@daffodils_required
+def register_event(request):
+    if request.method == 'POST':
+        name1 = request.POST.get('name', '')
+        photo1 = request.FILES.get('photo')
+
+        events.objects.create(
+            name=name1,
+            photo=photo1,
+
+        )
+
+        return redirect('event')
+
+    return render(request, 'add_event.html')
+
+@daffodils_required
+def add_event_photo(request):
+    if request.method == 'POST':
+        form = EventPhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Photo uploaded successfully!")
+            return redirect('gallery')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = EventPhotoForm()
+
+    return render(request, 'add_event_photo.html', {'form': form})
+
+@daffodils_required
+def photos(request): 
+    profiles = EventPhoto.objects.all()
+    return render(request, 'photos.html', {'profiles': profiles})

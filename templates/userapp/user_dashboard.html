@@ -6,31 +6,19 @@
 <style>
     .bg-image {
         /* Behind the links */
-        position: absolute;
-        top: 0;
-        left: 0;
+        background-image: url("{% static 'images/school1.jpg' %}");
         width: 100%;
-        height: 450px;
-        object-fit: cover;
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-        border-top-left-radius: 1rem !important;
-        /* keep original for top corners */
-        border-top-right-radius: 1rem !important;
+        height: 400px;
     }
 
     /* Mobile height */
     @media (max-width: 767px) {
         .bg-image {
-            height: 170px;
-            /* Smaller height on mobile */
+            height: 180px;
         }
     }
 
-    .bg-image1 img.rounded-5 {
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-    }
+    
 
     .custom-img {
         width: 370px;
@@ -105,82 +93,93 @@
     .link-dot {
         position: absolute;
         width: 50px;
-        height: 50px;
-        background-color: #007bff;
-        color: white;
+        height: 60px;
+        background-color: #ffffff00;
+        color: rgba(0, 0, 0, 0);
         text-align: center;
         line-height: 30px;
-        border-radius: 50%;
         font-weight: bold;
-        text-decoration: none;
+        text-decoration: none;   
         transition: transform 0.2s;
     }
 
-
-    /* Desktop positions (default) */
     .dot1 {
-        top: 85px;
-        left: 560px;
-        opacity: 0%;
+        margin-top: -90px;
+        margin-left: 80px;
+        opacity: 30%;
 
     }
 
     .dot2 {
-        top: 300px;
-        left: 95px;
-        opacity: 0%;
+        margin-top: -90px;
+        margin-left: 1px;
+        opacity: 30%;
+
     }
 
     .dot3 {
-        top: 300px;
-        left: 570px;
-        opacity: 0%;
+        margin-top: -90px;
+        margin-left: 1px;
+        opacity: 30%;
+
     }
 
     .dot4 {
-        top: 300px;
-        left: 415px;
-        opacity: 0%;
+        margin-top: -90px;
+        margin-left: 1px;
+        opacity: 30%;
+
     }
 
     .dot5 {
-        top: 90px;
-        left: 95px;
-        opacity: 0%;
+        margin-top: -90px;
+        margin-left: 1px;
+        opacity: 30%;
+
     }
 
-    /* Mobile positions */
     @media (max-width: 767px) {
-        .dot1 {
-            top: 15px;
-            left: 280px;
-            opacity: 0%;
+        .dot1 { 
+            margin-top: -60px;
+            margin-left: 30px;
+            opacity: 30%;
+
         }
 
         .dot2 {
-            top: 100px;
-            left: 45px;
-            opacity: 0%;
+            margin-top: -60px;
+            margin-left: 0.1px;
+            opacity: 30%;
+
         }
 
         .dot3 {
-            top: 96px;
-            left: 290px;
-            opacity: 0%;
+            margin-top: -60px;
+            margin-left: 0.5px;
+            opacity: 30%;
+
         }
 
         .dot4 {
-            top: 97px;
-            left: 200px;
-            opacity: 0%;
+            margin-top: -60px;
+            margin-left: 0.5px;
+            opacity: 30%;
+
         }
 
         .dot5 {
-            top: 20px;
-            left: 35px;
-            opacity: 0%;
+            margin-top: -60px;
+            margin-left: 0.1px;
+            opacity: 30%;
+
         }
     }
+
+
+
+
+
+    /* Mobile positions */
 </style>
 
 <section class="container-fluid ">
@@ -203,59 +202,71 @@
         </div>
 
         <div class="col-12 col-md-6 ">
-            <section class="container-fluid ">
-                <div class="position-relative d-flex justify-content-center align-items-center bg-image">
-                    <img src="{% static 'images/bpl4.jpg' %}" alt="..." class="col-12 col-md-12 rounded-5"
-                        style="height: 100%; ">
+            <section class="container-fluid  bg-image row">
 
-                    <!-- Each link gets a class for identification -->
-                    <a href="{% url 'class_d' %}" class="link-dot dot1">1</a>
-                    <a href="{% url 'all_teachers' %}" class="link-dot dot2">2</a>
-                    <a href="{% url 'class_a' %}" class="link-dot dot3">3</a>
-                    <a href="{% url 'class_c' %}" class="link-dot dot4">4</a>
-                    <a href="{% url 'class_b' %}" class="link-dot dot5">5</a>
+
+                <img src="{% static 'images/school1.png' %}" alt="..." class="">
+
+                <!-- Each link gets a class for identification -->
+                <div class="col-2 col-md-2 dot1">
+                    <a href="{% url 'class_a' %}" class="link-dot ">1</a>
                 </div>
-            </section>
-
-            <section class="pt-2">
-
-            </section>
+                <div class="col-2 col-md-2 dot2">
+                    <a href="{% url 'class_b' %}" class="link-dot ">2</a>
+                </div>
+                <div class="col-2 col-md-2 dot3">
+                    <a href="{% url 'all_teachers' %}" class="link-dot ">3</a>
+                </div>
+                <div class="col-2 col-md-2 dot4">
+                    <a href="{% url 'class_c' %}" class="link-dot ">4</a>
+                </div>
+                <div class="col-2 col-md-2 dot5">
+                    <a href="{% url 'class_d' %}" class="link-dot ">5</a>
+                </div>
+                
 
         </div>
+</section>
 
-        <div class=" col-12 col-md-12 ">
-            <section class="container-fluid">
-                <div class="row">
-                    <div class="col-4 col-md-2  pt-2">
-                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
-                            <a href="{% url 'view_profile' %}"><img src="{% static 'images\d11.png' %}"
-                                    class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">View Profile</H5>
-                        </div>
-                    </div>
-                    <div class="col-4 col-md-2  pt-2">
-                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
-                            <a href="{% url 'view_profile' %}"><img src="{% static 'images\d11.png' %}"
-                                    class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">View Profile</H5>
-                        </div>
-                    </div>
-                    <div class="col-4 col-md-2  pt-2">
-                        <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
-                            <a href="{% url 'view_profile' %}"><img src="{% static 'images\d11.png' %}"
-                                    class="card-img-top " style="border-radius: 13PX;height:100PX;" alt=""></a>
-                            <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">View Profile</H5>
-                        </div>
-                    </div>
+<section class="pt-2">
 
+</section>
 
+</div>
 
-
-
+<div class=" col-12 col-md-12 ">
+    <section class="container-fluid">
+        <div class="row">
+            <div class="col-4 col-md-2  pt-2">
+                <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
+                    <a href="{% url 'view_profile' %}"><img src="{% static 'images\d11.png' %}" class="card-img-top "
+                            style="border-radius: 13PX;height:100PX;" alt=""></a>
+                    <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">View Profile</H5>
                 </div>
-            </section>
+            </div>
+            <div class="col-4 col-md-2  pt-2">
+                <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
+                    <a href="{% url 'view_profile' %}"><img src="{% static 'images\d11.png' %}" class="card-img-top "
+                            style="border-radius: 13PX;height:100PX;" alt=""></a>
+                    <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">View Profile</H5>
+                </div>
+            </div>
+            <div class="col-4 col-md-2  pt-2">
+                <div class="card rounded-4 border bg-gradient-opacity border-primary border-3 px-0 ">
+                    <a href="{% url 'view_profile' %}"><img src="{% static 'images\d11.png' %}" class="card-img-top "
+                            style="border-radius: 13PX;height:100PX;" alt=""></a>
+                    <H5 class="text-center pt-2" style="color: rgb(0, 0, 0);">View Profile</H5>
+                </div>
+            </div>
+
+
+
+
+
         </div>
-    </div>
+    </section>
+</div>
+</div>
 </section>
 <br>
 
