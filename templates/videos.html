@@ -1,0 +1,127 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container pt-4">
+
+    
+    <a style="text-decoration: none;" href="{% url 'add_event_video' %}"><h2 class="text-center nav-button1">Videos Gallery</h2></a>
+    
+    <div class="row">
+        {% for profile in profiles %}
+        <div class="col-6 col-md-3">
+            <div class="profile-card">
+                <a href="{% url 'event_video_detail' profile.id %}" title="{{ profile.event.name }}">
+                    {% if profile.thumbnail %}
+                    <img src="{{ profile.thumbnail.url }}" alt="Video Thumbnail" class="photo-rounded" />
+                    {% elif profile.video %}
+                    <!-- Fallback: show video first frame as video tag -->
+                    <video class="photo-rounded" muted>
+                        <source src="{{ profile.video.url }}" type="video/mp4" />
+                    </video>
+                    {% else %}
+                    <img src="{% static 'images/video_thumb.jpg' %}" alt="Default Thumbnail" class="photo-rounded" />
+                    {% endif %}
+                </a>
+            </div>
+            <h6 class="pb-2 text-center fw-bold">{{ profile.event }}</h6>
+        </div>
+        {% empty %}
+        <p>No videos found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .nav-button1 {
+        align-items: center;
+        background: linear-gradient(to right, #17b1fe, #3be0f2);
+        color: black;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+    }
+
+    .nav-button2 {
+        align-items: center;
+        background: linear-gradient(to right, #2bd00e94, #2bd00e94);
+        color: black;
+        font-size: 10px;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+    }
+
+    .profile-card {
+        border: 2px solid #007bff;
+        border-top-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        background-color: #fff;
+        width: 100%;
+        height: 200px;
+    }
+
+    .profile-card:hover {
+        transform: scale(1.03);
+    }
+
+    .photo-rounded {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-top-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        display: block;
+    }
+</style>
+
+<script>
+    document.getElementById('videoInput').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const video = document.createElement('video');
+        video.preload = 'metadata';
+        video.muted = true;
+        video.src = URL.createObjectURL(file);
+        video.playsInline = true;
+
+        video.addEventListener('loadeddata', () => {
+            video.currentTime = 1;
+        });
+
+        video.addEventListener('seeked', () => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const dataURL = canvas.toDataURL('image/jpeg');
+
+            const img = document.getElementById('thumbnailPreview');
+            img.src = dataURL;
+            img.classList.add('photo-rounded');
+
+            URL.revokeObjectURL(video.src);
+        });
+    });
+</script>
+
+{% endblock %}

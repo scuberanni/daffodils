@@ -1,3 +1,5 @@
+
+
 {% extends 'blank_layout.html' %}
 {% load static %}
 
@@ -110,19 +112,19 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <form method="POST" enctype="multipart/form-data" action="{% url 'add_event_photo' %}">
+    <div class="wrapper m-4">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div >
-                photo
-            </div>
+            
             <div class="input-field">
                 {{ form.event }}
             </div>
             <div class="input-field">
                 {{ form.photo }}
             </div>
-            <button type="submit">Upload</button>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{% url 'videos' %}" class="btn btn-secondary mt-2">Cancel</a>
         </form>
     </div>
 </body>

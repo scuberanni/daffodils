@@ -9,12 +9,13 @@
 
 
 <div class="container pt-4">
-    <a style="text-decoration: none;" href=""><h2 class="text-center nav-button1">Photos</h2></a>
+    <a style="text-decoration: none;" href="{% url 'add_event_photo' %}"><h2 class="text-center nav-button1">Photos</h2></a>
+    
     <div class="row">
         {% for profile in profiles %}
         <div class="col-6 col-md-3">
             <div class="profile-card">
-                <a href="" title="{{ profile.name }}">
+                <a href="{% url 'event_photos_detail' profile.id %}" title="{{ profile.name }}">
                     {% if profile.photo %}
                     <img src="{{ profile.photo.url }}" alt="{{ profile.name }} photo" class="photo-rounded" />
                     {% else %}
@@ -26,7 +27,7 @@
 
         </div>
         {% empty %}
-        <p>No events found.</p>
+        <p>No Photos found.</p>
         {% endfor %}
     </div>
 </div>
@@ -46,6 +47,20 @@
         font-weight: bold;
         transition: background-color 0.3s ease;
     }
+
+    .nav-button2 {
+        align-items: center;
+        background: linear-gradient(to right, #2bd00e94, #2bd00e94);
+        color: black;
+        font-size: 10px;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+    }
+
 
     .profile-card {
         border: 2px solid #007bff;

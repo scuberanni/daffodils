@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import EventPhoto
+from .models import EventPhoto,EventVideo
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
@@ -28,3 +28,22 @@ class EventPhotoForm(forms.ModelForm):
             'event': '',
             'photo': '',
         }
+
+class EventVideoForm(forms.ModelForm):
+    class Meta:
+        model = EventVideo
+        fields = ['event', 'video']
+        labels = {
+            'event': '',
+            'video': '',
+        }
+        widgets = {
+            'event': forms.Select(attrs={'class': 'form-select'}),
+            'video': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
+
+def clean_video(self):
+        video = self.cleaned_data.get('video')
+        if video and video.size > 10 * 1024 * 1024:  # 10 MB limit (example)
+            raise forms.ValidationError("Video file must be under 10MB.")
+        return video

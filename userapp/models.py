@@ -47,6 +47,14 @@ class EventPhoto(models.Model):
 
     def __str__(self):
         return f"{self.event.name} - {self.updated_date.strftime('%Y-%m-%d %H:%M')}"
+    
+class EventVideo(models.Model):
+    updated_date = models.DateTimeField(auto_now=True)
+    event = models.ForeignKey(events, on_delete=models.CASCADE)
+    video = models.FileField(upload_to='event_videos/')
+
+    def __str__(self):
+        return f"{self.event.name} - {self.updated_date.strftime('%Y-%m-%d %H:%M')}"
 
 
 

@@ -19,5 +19,13 @@ urlpatterns = [
     path('add_event/', views.add_event, name='add_event'),
     path('register_event/', views.register_event, name='register_event'),
     path('add_event_photo/', views.add_event_photo, name='add_event_photo'),
+    path('photos/<int:pk>/', views.event_photos_detail, name='event_photos_detail'),
     path('photos/', views.photos, name='photos'),
+    path('photos/<int:pk>/edit/', views.edit_event_photos, name='edit_event_photos'),
+    path('photos/<int:pk>/delete/', views.delete_event_photos, name='delete_event_photos'),
+    path('add_event_video/', views.add_event_video, name='add_event_video'),
+    path('videos/', views.videos, name='videos'),
+    path('video/<int:pk>/', views.event_video_detail, name='event_video_detail'),
+    path('videos/<int:pk>/edit/', views.edit_event_video, name='edit_event_video'),
+    path('videos/<int:pk>/delete/', views.delete_event_video, name='delete_event_video'),
 ]

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-from userapp.models import UserProfile,TeacherProfile,events,EventPhoto
+from userapp.models import UserProfile,TeacherProfile,events,EventPhoto,EventVideo
 from django.contrib.auth.models import User
 from django.contrib import messages 
 from django.contrib import admin
@@ -12,7 +12,7 @@ import urllib.parse
 import webbrowser  # for optional testing
 from django.shortcuts import get_object_or_404
 from django import forms 
-from userapp.forms import TeacherProfileForm,EventPhotoForm
+from userapp.forms import TeacherProfileForm,EventPhotoForm,EventVideoForm
 
 
 
@@ -255,3 +255,81 @@ def add_event_photo(request):
 def photos(request): 
     profiles = EventPhoto.objects.all()
     return render(request, 'photos.html', {'profiles': profiles})
+
+@daffodils_required
+def event_photos_detail(request, pk):
+    video = get_object_or_404(EventPhoto, pk=pk)
+    return render(request, 'event_photos_detail.html', {'video': video})
+
+@daffodils_required
+def edit_event_photos(request, pk):
+    video_obj = get_object_or_404(EventPhoto, pk=pk)
+    if request.method == 'POST':
+        form = EventPhotoForm(request.POST, request.FILES, instance=video_obj)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Video updated successfully!")
+            return redirect('photos')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = EventPhotoForm(instance=video_obj)
+    return render(request, 'event_photo_edit.html', {'form': form, 'title': 'Edit photo'})
+
+@daffodils_required
+def delete_event_photos(request, pk):
+    video_obj = get_object_or_404(EventPhoto, pk=pk)
+    if request.method == 'POST':
+        video_obj.delete()
+        messages.success(request, "photo deleted successfully!")
+        return redirect('photos')
+    return render(request, 'confirm_delete_photo.html', {'video': video_obj})
+
+@daffodils_required
+def add_event_video(request):
+    if request.method == 'POST':
+        form = EventVideoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Video uploaded successfully!")
+            return redirect('gallery')  # Adjust if you have a separate video gallery
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = EventVideoForm()
+
+    return render(request, 'add_event_video.html', {'form': form})
+
+@daffodils_required
+def videos(request): 
+    profiles = EventVideo.objects.all()
+    return render(request, 'videos.html', {'profiles': profiles})
+
+@daffodils_required
+def event_video_detail(request, pk):
+    video = get_object_or_404(EventVideo, pk=pk)
+    return render(request, 'event_video_detail.html', {'video': video})
+
+@daffodils_required
+def edit_event_video(request, pk):
+    video_obj = get_object_or_404(EventVideo, pk=pk)
+    if request.method == 'POST':
+        form = EventVideoForm(request.POST, request.FILES, instance=video_obj)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Video updated successfully!")
+            return redirect('videos')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = EventVideoForm(instance=video_obj)
+    return render(request, 'event_video_edit.html', {'form': form, 'title': 'Edit Video'})
+
+@daffodils_required
+def delete_event_video(request, pk):
+    video_obj = get_object_or_404(EventVideo, pk=pk)
+    if request.method == 'POST':
+        video_obj.delete()
+        messages.success(request, "Video deleted successfully!")
+        return redirect('videos')
+    return render(request, 'confirm_delete.html', {'video': video_obj})
