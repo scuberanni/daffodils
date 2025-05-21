@@ -17,5 +17,14 @@ urlpatterns = [
     path('class_b/', views.user_class_b, name='class_b'),
     path('class_c/', views.user_class_c, name='class_c'),
     path('class_d/', views.user_class_d, name='class_d'),
+    path('view_gallery/', views.view_gallery, name='view_gallery'), 
+    path('view_event/', views.view_event, name='view_event'), 
+    path('view_photos/', views.view_photos, name='view_photos'),
+    path('view_photos/<int:pk>/', views.view_event_photos_detail, name='view_event_photos_detail'), 
+    path('view_videos/', views.view_videos, name='view_videos'), 
+    path('view_video/<int:pk>/', views.view_event_video_detail, name='view_event_video_detail'),
+
+
+
     
 ]

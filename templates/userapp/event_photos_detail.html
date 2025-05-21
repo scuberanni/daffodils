@@ -1,0 +1,53 @@
+{% extends 'userapp/blank_layout_user.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style>
+    .profile-img {
+        margin-top: 20px;
+        max-width: 500px;
+        max-height: 700px;
+        height: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .profile-img {
+            margin-top: 5px;
+            max-width: 380px;
+            max-height: 350px;
+        }
+    }
+</style>
+
+<div class="container pt-4">
+    <div id="profile-data" data-batch="{{ profile.batch }}" >
+        <div class="pt-2 shadow-lg rounded">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center mb-3 mb-md-0">
+                    {% if video.photo %}
+                    <img src="{{ video.photo.url }}" alt="User Photo" class="img-fluid border profile-img">
+                    {% else %}
+                    <img src="{% static 'images/prp.png' %}" alt="Default Photo" class="img-fluid border profile-img">
+                    {% endif %}
+                </div>
+                <div class="col-md-5 col-11 m-3" >
+                    <h2 style=" font-weight: bold; text-align: center;" class="text-primary">{{ video.event.name }}</h2>
+                    <a style="width: 100%" href="{% url 'view_photos' %}" class="btn btn-primary">Back</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center mt-3 col-1 col-md-3 ">
+                    </div>
+                    <div class="text-center mt-3 col-3 col-md-2 ">
+                        
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

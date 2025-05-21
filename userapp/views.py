@@ -4,7 +4,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile,TeacherProfile
+from .models import UserProfile,TeacherProfile,events,EventPhoto,EventVideo
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.decorators.http import require_GET
@@ -210,3 +210,33 @@ def user_class_d(request):
     teacher = TeacherProfile.objects.filter(batch="10D")
     users = UserProfile.objects.filter(batch="10D", is_approved=True)
     return render(request, 'userapp/class.html', {'users': users,'teacher': teacher})
+
+@login_required
+def view_gallery(request):
+    users = UserProfile.objects.all()
+    return render(request, 'userapp/gallery.html', {'users': users})
+
+@login_required
+def view_photos(request): 
+    profiles = EventPhoto.objects.all()
+    return render(request, 'userapp/photos.html', {'profiles': profiles})
+
+@login_required
+def view_event_photos_detail(request, pk):
+    video = get_object_or_404(EventPhoto, pk=pk)
+    return render(request, 'userapp/event_photos_detail.html', {'video': video})
+
+@login_required
+def view_videos(request): 
+    profiles = EventVideo.objects.all()
+    return render(request, 'userapp/videos.html', {'profiles': profiles})
+
+@login_required
+def view_event_video_detail(request, pk):
+    video = get_object_or_404(EventVideo, pk=pk)
+    return render(request, 'userapp/event_video_detail.html', {'video': video})
+
+@login_required
+def view_event(request): 
+    profiles = events.objects.all()
+    return render(request, 'userapp/event.html', {'profiles': profiles})

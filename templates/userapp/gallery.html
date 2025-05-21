@@ -1,0 +1,84 @@
+{% extends 'userapp/blank_layout_user.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Your HTML -->
+
+
+
+
+<div class="container pt-4">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="profile-card mt-2">
+                <a href="{% url 'view_photos' %}" >
+                    <img src="{% static 'images\d5.png' %}" alt="{{ profile.name }} photo" class="photo-rounded" />
+                </a>
+            </div>
+            <h3 class="bg-info rounded-4 mt-2" style="text-align: center;font-weight: bold;font-size: 30px; color: #000000;">Photos</h3>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="profile-card mt-2">
+                <a href="{% url 'view_videos' %}" >
+                    <img src="{% static 'images\d5.png' %}" alt="{{ profile.name }} photo" class="photo-rounded " />
+                </a>
+            </div>
+            <h3 class="bg-warning rounded-4 mt-1 mt-2" style="text-align: center;font-weight: bold;font-size: 30px; color: #000000;">Videos</h3>
+            <h2 class="pb-2" style="text-align: center; font-weight: bold;">{{ profile.name }}</h2>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- CSS styles -->
+<style>
+    .nav-button1 {
+        
+        align-items: center;
+        background: linear-gradient(to right, #a43cff, #ebcdf6);
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .profile-card {
+        border: 2px solid #007bff;
+        border-top-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        overflow: hidden;
+        /* required to clip contents */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        background-color: #fff;
+        width: 100%;
+        height: 250PX;
+    }
+
+    .profile-card:hover {
+        transform: scale(1.03);
+    }
+
+
+    .photo-rounded {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Round top-left and bottom-right only */
+        border-top-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        display: block;
+    }
+
+    /* Responsive tweak (optional) */
+</style>
+
+{% endblock %}

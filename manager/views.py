@@ -117,7 +117,7 @@ def users_list(request):
 
 @daffodils_required
 def gallery(request):
-    users = UserProfile.objects.all().order_by('batch')[:50]  # limit to first 50
+    users = UserProfile.objects.all().order_by('batch')
     return render(request, 'gallery.html', {'users': users})
 
 @daffodils_required

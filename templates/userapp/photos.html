@@ -1,0 +1,100 @@
+{% extends 'userapp/blank_layout_user.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Your HTML -->
+
+
+
+
+<div class="container pt-4">
+    
+    <a style="text-decoration: none;" href="{% url 'view_gallery' %}"><h2 class="text-center nav-button1">Photos</h2></a>
+    <div class="row">
+        {% for profile in profiles %}
+        <div class="col-6 col-md-3">
+            <div class="profile-card">
+                <a href="{% url 'view_event_photos_detail' profile.id %}" title="{{ profile.name }}">
+                    {% if profile.photo %}
+                    <img src="{{ profile.photo.url }}" alt="{{ profile.name }} photo" class="photo-rounded" />
+                    {% else %}
+                    <img src="{% static 'images/prp.png' %}" alt="Default photo" class="photo-rounded" />
+                    {% endif %}
+                </a>
+            </div>
+            <h6 class="pb-2" style="text-align: center; font-weight: bold;">{{ profile.event }}</h6>
+
+        </div>
+        {% empty %}
+        <p>No Photos found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+<!-- CSS styles -->
+<style>
+    .nav-button1 {
+        
+        align-items: center;
+        background: linear-gradient(to right, #17b1fe, #3be0f2);
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .nav-button2 {
+        align-items: center;
+        background: linear-gradient(to right, #2bd00e94, #2bd00e94);
+        color: black;
+        font-size: 10px;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+    }
+
+
+    .profile-card {
+        border: 2px solid #007bff;
+        border-top-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        overflow: hidden;
+        /* required to clip contents */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        background-color: #fff;
+        width: 100%;
+        height: 200PX;
+    }
+
+    .profile-card:hover {
+        transform: scale(1.03);
+    }
+
+
+    .photo-rounded {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Round top-left and bottom-right only */
+        border-top-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        display: block;
+    }
+
+    /* Responsive tweak (optional) */
+</style>
+
+{% endblock %}
