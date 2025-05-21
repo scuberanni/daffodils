@@ -181,7 +181,7 @@ def user_detail(request, profile_id):
 @login_required
 def teacher_detail(request, profile_id):
     profile = get_object_or_404(TeacherProfile, id=profile_id)
-    return render(request, 'userapp/user_detail.html', {'profile': profile})
+    return render(request, 'userapp/teacher_detail.html', {'profile': profile})
 
 def all_teachers(request):
     users = TeacherProfile.objects.all()
