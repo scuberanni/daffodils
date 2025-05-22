@@ -192,8 +192,9 @@
 
             <!-- Phone Number -->
             <div class="input-field">
-                <input type="tel" name="phone" placeholder="Enter your phone number" autocomplete="off"
-                    value="{{ phone|default:'' }}" required />
+                <label for="phone"></label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number"
+                    value="{{ phone|default:'+91' }}" required />
             </div>
 
 
@@ -245,6 +246,20 @@
             <button type="button" onclick="closeCropModal()" style="margin-left: 10px;">Cancel</button>
         </div>
     </div>
+
+    <script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+            const phoneInput = document.getElementById("phone");
+            const phoneValue = phoneInput.value.trim();
+
+            // Check if length is 8 or less
+            if (phoneValue.length <= 8) {
+                alert("Please enter phone number");
+                phoneInput.focus();
+                e.preventDefault();  // Stop the form from submitting
+            }
+        });
+    </script>
 
     <script>
         let cropper;
