@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import UserProfile
+from .models import UserProfile, TeacherProfile, events, EventPhoto, EventVideo
 
-@admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'is_approved')
-    list_filter = ('is_approved',)
-    search_fields = ('user__username',)
+admin.site.register(UserProfile)
+admin.site.register(TeacherProfile)
+admin.site.register(events)
+admin.site.register(EventPhoto)
+admin.site.register(EventVideo)
