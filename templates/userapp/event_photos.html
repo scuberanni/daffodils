@@ -1,4 +1,4 @@
-{% extends 'blank_layout.html' %}
+{% extends 'userapp/blank_layout_user.html' %}
 {% load static %}
 
 {% block content %}
@@ -9,12 +9,15 @@
 
 
 <div class="container pt-4">
-    <a style="text-decoration: none;" href="{% url 'add_event' %}"><h2 class="text-center nav-button1">Create a new Event</h2></a>
+
+    <a style="text-decoration: none;" href="{% url 'view_event_detail' event.pk %}">
+        <h2 class="text-center nav-button1">Back to Event</h2>
+    </a>
     <div class="row">
         {% for profile in profiles %}
-        <div class="col-12 col-md-4">
+        <div class="col-6 col-md-3">
             <div class="profile-card">
-                <a href="{% url 'event_detail' profile.id %}" title="{{ profile.name }}">
+                <a href="{% url 'view_event_photos_details' profile.id %}" title="{{ profile.name }}">
                     {% if profile.photo %}
                     <img src="{{ profile.photo.url }}" alt="{{ profile.name }} photo" class="photo-rounded" />
                     {% else %}
@@ -22,11 +25,11 @@
                     {% endif %}
                 </a>
             </div>
-            <h2 class="pb-2" style="text-align: center; font-weight: bold;">{{ profile.name }}</h2>
+            <h6 class="pb-2" style="text-align: center; font-weight: bold;">{{ profile.event }}</h6>
 
         </div>
         {% empty %}
-        <p>No events found.</p>
+        <p>No Photos found.</p>
         {% endfor %}
     </div>
 </div>
@@ -36,9 +39,9 @@
 <!-- CSS styles -->
 <style>
     .nav-button1 {
-        
+
         align-items: center;
-        background: linear-gradient(to right, #a43cff, #ebcdf6);
+        background: linear-gradient(to right, #17b1fe, #3be0f2);
         color: rgb(0, 0, 0);
         padding: 10px 20px;
         text-decoration: none;
@@ -46,6 +49,20 @@
         font-weight: bold;
         transition: background-color 0.3s ease;
     }
+
+    .nav-button2 {
+        align-items: center;
+        background: linear-gradient(to right, #2bd00e94, #2bd00e94);
+        color: black;
+        font-size: 10px;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+    }
+
 
     .profile-card {
         border: 2px solid #007bff;
@@ -59,7 +76,7 @@
         transition: transform 0.2s ease;
         background-color: #fff;
         width: 100%;
-        height: 250PX;
+        height: 200PX;
     }
 
     .profile-card:hover {

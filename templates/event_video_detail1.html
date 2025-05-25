@@ -1,0 +1,18 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container pt-4">
+    <h2 class="text-center nav-button1">{{ video.event.name }}</h2>
+    <div class="video-player-wrapper" style="max-width: 800px; margin: auto;">
+        <video width="100%" height="auto" controls autoplay>
+            <source src="{{ video.video.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+   <div class="row">
+    <div class="text-center mt-3 col-1 col-md-3 ">
+    </div>
+    
+</div>
+{% endblock %}

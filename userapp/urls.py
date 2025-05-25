@@ -20,9 +20,15 @@ urlpatterns = [
     path('view_gallery/', views.view_gallery, name='view_gallery'), 
     path('view_event/', views.view_event, name='view_event'), 
     path('view_photos/', views.view_photos, name='view_photos'),
-    path('view_photos/<int:pk>/', views.view_event_photos_detail, name='view_event_photos_detail'), 
+    path('view_photos/<int:pk>/', views.view_event_photos_detail, name='view_event_photos_detail'),
+      
     path('view_videos/', views.view_videos, name='view_videos'), 
     path('view_video/<int:pk>/', views.view_event_video_detail, name='view_event_video_detail'),
+    path('view_videos/<int:pk>/', views.view_event_video_details, name='view_event_video_details'),
+    path('view_photo/<int:pk>/', views.view_event_photos_details, name='view_event_photos_details'),
+    path('view_event_detail/<int:pk>/', views.view_event_detail, name='view_event_detail'), 
+    path('view_photos_event/<str:event_name>/', views.view_photos_event, name='view_photos_event'),
+    path('view_videos_event/<str:event_name>/', views.view_videos_event, name='view_videos_event'),
 
 
 

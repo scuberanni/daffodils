@@ -208,7 +208,7 @@ def edit_teacher_profile(request, pk):
 
 @daffodils_required
 def table(request): 
-    profiles = UserProfile.objects.all().order_by('batch')
+    profiles = UserProfile.objects.all().order_by('is_approved', 'batch')
     return render(request, 'table.html', {'profiles': profiles})
 
 @daffodils_required
@@ -333,3 +333,30 @@ def delete_event_video(request, pk):
         messages.success(request, "Video deleted successfully!")
         return redirect('videos')
     return render(request, 'confirm_delete.html', {'video': video_obj})
+
+@daffodils_required
+def event_detail(request,pk): 
+    event = get_object_or_404(events, pk=pk)
+    return render(request, 'event_details.html', {'event': event})
+
+@daffodils_required
+def photos_event(request, event_name):
+    event = get_object_or_404(events, name=event_name)
+    photos = EventPhoto.objects.filter(event=event).order_by('-updated_date')
+    return render(request, 'event_photos.html', {'event': event, 'profiles': photos})
+
+@daffodils_required
+def videos_event(request, event_name):
+    event = get_object_or_404(events, name=event_name)
+    videos = EventVideo.objects.filter(event=event).order_by('-updated_date')
+    return render(request, 'event_videos.html', {'event': event, 'profiles': videos})
+
+@daffodils_required
+def event_video_details(request, pk):
+    video = get_object_or_404(EventVideo, pk=pk)
+    return render(request, 'event_video_detail1.html', {'video': video})
+
+@daffodils_required
+def event_photos_details(request, pk):
+    video = get_object_or_404(EventPhoto, pk=pk)
+    return render(request, 'event_photos_detail1.html', {'video': video})

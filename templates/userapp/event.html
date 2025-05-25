@@ -9,12 +9,12 @@
 
 
 <div class="container pt-4">
-    <a style="text-decoration: none;" href=""><h2 class="text-center nav-button1">Create a new Event</h2></a>
+    <a style="text-decoration: none;" href=""><h2 class="text-center nav-button1">Events</h2></a>
     <div class="row">
         {% for profile in profiles %}
         <div class="col-12 col-md-4">
             <div class="profile-card">
-                <a href="" title="{{ profile.name }}">
+                <a href="{% url 'view_event_detail' profile.id %}" title="{{ profile.name }}">
                     {% if profile.photo %}
                     <img src="{{ profile.photo.url }}" alt="{{ profile.name }} photo" class="photo-rounded" />
                     {% else %}

@@ -22,6 +22,7 @@ class TeacherProfile(models.Model):
     name = models.CharField(max_length=20, unique=True)
     phone = models.CharField(max_length=15, default='+91')
     address = models.CharField(max_length=100, blank=True, null=True)
+    subject = models.CharField(max_length=20, blank=True, null=True)
     batch = models.CharField(
         max_length=20,
         blank=True,

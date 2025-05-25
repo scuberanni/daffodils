@@ -15,7 +15,7 @@ from .models import TeacherProfile
 class TeacherProfileForm(forms.ModelForm):
     class Meta:
         model = TeacherProfile
-        fields = ['name', 'phone', 'address', 'batch', 'photo']
+        fields = ['name', 'phone', 'address','subject', 'batch', 'photo']
         widgets = {
             'batch': forms.Select(attrs={'class': 'form-control'}),
         }

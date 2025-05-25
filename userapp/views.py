@@ -226,6 +226,8 @@ def view_event_photos_detail(request, pk):
     video = get_object_or_404(EventPhoto, pk=pk)
     return render(request, 'userapp/event_photos_detail.html', {'video': video})
 
+
+
 @login_required
 def view_videos(request): 
     profiles = EventVideo.objects.all()
@@ -236,7 +238,36 @@ def view_event_video_detail(request, pk):
     video = get_object_or_404(EventVideo, pk=pk)
     return render(request, 'userapp/event_video_detail.html', {'video': video})
 
+
+
 @login_required
 def view_event(request): 
     profiles = events.objects.all()
     return render(request, 'userapp/event.html', {'profiles': profiles})
+
+@login_required
+def view_event_detail(request,pk): 
+    event = get_object_or_404(events, pk=pk)
+    return render(request, 'userapp/event_details.html', {'event': event})
+
+@login_required
+def view_photos_event(request, event_name):
+    event = get_object_or_404(events, name=event_name)
+    photos = EventPhoto.objects.filter(event=event).order_by('-updated_date')
+    return render(request, 'userapp/event_photos.html', {'event': event, 'profiles': photos})
+
+@login_required
+def view_videos_event(request, event_name):
+    event = get_object_or_404(events, name=event_name)
+    videos = EventVideo.objects.filter(event=event).order_by('-updated_date')
+    return render(request, 'userapp/event_videos.html', {'event': event, 'profiles': videos})
+
+@login_required
+def view_event_video_details(request, pk):
+    video = get_object_or_404(EventVideo, pk=pk)
+    return render(request, 'userapp/event_video_detail1.html', {'video': video})
+
+@login_required
+def view_event_photos_details(request, pk):
+    video = get_object_or_404(EventPhoto, pk=pk)
+    return render(request, 'userapp/event_photos_detail1.html', {'video': video})
