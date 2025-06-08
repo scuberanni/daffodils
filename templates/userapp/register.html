@@ -252,19 +252,7 @@
         </div>
     </div>
 
-    <script>
-        document.querySelector("form").addEventListener("submit", function (e) {
-            const phoneInput = document.getElementById("phone");
-            const phoneValue = phoneInput.value.trim();
-
-            // Check if length is 8 or less
-            if (phoneValue.length <= 8) {
-                alert("Please enter phone number");
-                phoneInput.focus();
-                e.preventDefault();  // Stop the form from submitting
-            }
-        });
-    </script>
+    
 
 
 
@@ -278,8 +266,8 @@
             const file = e.target.files[0];
             if (!file) return;
 
-            if (file.size > 300 * 1024) {
-                alert("Image must be below 300KB.");
+            if (file.size > 1024 * 1024) {
+                alert("Image must be below 1024KB.");
                 input.value = '';
                 return;
             }
@@ -302,8 +290,8 @@
 
         function cropAndUpload() {
             cropper.getCroppedCanvas().toBlob(blob => {
-                if (blob.size > 300 * 1024) {
-                    alert("Cropped image exceeds 300KB. Try cropping tighter or choosing a smaller file.");
+                if (blob.size > 1024 * 1024) {
+                    alert("Cropped image exceeds 1024KB. Try cropping tighter or choosing a smaller file.");
                     input.value = '';
                     closeCropModal();
                     return;

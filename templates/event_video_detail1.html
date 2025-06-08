@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container pt-4">
-    <h2 class="text-center nav-button1">{{ video.event.name }}</h2>
+    <h2 class="text-center nav-button1">{{ video.event.name |upper}}</h2>
     <div class="video-player-wrapper" style="max-width: 800px; margin: auto;">
         <video width="100%" height="auto" controls autoplay>
             <source src="{{ video.video.url }}" type="video/mp4">

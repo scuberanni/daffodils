@@ -13,8 +13,8 @@
         {% endif %}
       </div>
       <div class="col-md-6">
-        <h2 style=" font-weight: bold;" class="text-primary">{{ profile.user.first_name|upper }} {{ profile.user.last_name }}</h2>
-        <h2 style=" font-weight: bold;" class="text-primary"> {{ profile.name}}</h2>
+        <h2 style=" font-weight: bold;" class="text-primary">{{ profile.user.first_name|upper }} {{ profile.user.last_name |upper}}</h2>
+        <h2 style=" font-weight: bold;" class="text-primary"> {{ profile.name |upper}}</h2>
         <h5 class="text-muted">{{ profile.user.email }}</h5>
         <p><strong>Subject:</strong> {{ profile.subject }}</p>
         <p><strong>Batch:</strong> {{ profile.batch }}</p>

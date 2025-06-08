@@ -25,7 +25,7 @@
                     {% endif %}
                 </a>
             </div>
-            <h6 class="pb-2 text-center fw-bold">{{ profile.event }}</h6>
+            <h6 class="pb-2 text-center fw-bold">{{ profile.event |upper}}</h6>
         </div>
         {% empty %}
         <p>No videos found.</p>

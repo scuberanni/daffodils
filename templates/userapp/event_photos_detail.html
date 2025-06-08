@@ -34,7 +34,7 @@
                     {% endif %}
                 </div>
                 <div class="col-md-5 col-11 m-3" >
-                    <h2 style=" font-weight: bold; text-align: center;" class="text-primary">{{ video.event.name }}</h2>
+                    <h2 style=" font-weight: bold; text-align: center;" class="text-primary">{{ video.event.name |upper}}</h2>
                     <a style="width: 100%" href="{% url 'view_photos' %}" class="btn btn-primary">Back</a>
                     </div>
                 </div>
