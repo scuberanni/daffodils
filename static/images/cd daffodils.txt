@@ -1,9 +1,0 @@
-cd daffodils
-git reset --hard
-git clean -fd
-git pull origin main
-
-cd
-source /home/daffodils/venv/bin/activate
-cd daffodils
-python manage.py collectstatic
