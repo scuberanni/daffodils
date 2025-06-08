@@ -20,7 +20,7 @@
           <img src="{{ profile.photo.url }}" alt="{{ profile.name }} photo" style="height: 150px;"
             class="photo-rounded" />
           {% else %}
-          <img src="{% static 'images/prp.png' %}" alt="Default photo" class="photo-rounded" />
+          <img src="{% static 'images/prp2.png' %}" alt="Default photo" style="height: 150px;" class="photo-rounded" />
           {% endif %}
         </a>
 
@@ -42,7 +42,7 @@
           {% if profile.photo %}
           <img src="{{ profile.photo.url }}" alt="{{ profile.name }} photo" class="photo-rounded" />
           {% else %}
-          <img src="{% static 'images/prp2.png' %}" alt="Default photo" class="photo-rounded" />
+          <img src="{% static 'images/prp.png' %}" alt="Default photo" class="photo-rounded" />
           {% endif %}
         </a>
       </div>
