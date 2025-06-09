@@ -130,7 +130,7 @@ def approve_user(request, user_id):
 
         # Send WhatsApp message (open WhatsApp Web with pre-filled message)
         phone = profile.phone
-        message = urllib.parse.quote("Hi {}, your registration has been approved. Welcome! to daffodils".format(profile.user.first_name or profile.user.username))
+        message = urllib.parse.quote("Hi {}, Your Registration has been Approved. Welcome! to Daffodils Rewind_2025".format(profile.user.first_name or profile.user.username))
         whatsapp_url = f"https://wa.me/{phone}?text={message}"
 
         # You can open the URL in a new tab for local testing (desktop)
