@@ -108,7 +108,6 @@
             font-weight: 600;
         }
 
-        /* Crop modal styles */
         #cropModal {
             display: none;
             position: fixed;
@@ -134,7 +133,6 @@
             max-height: 60vh;
         }
 
-        /* Responsive */
         @media (max-width: 600px) {
             .wrapper {
                 width: 90%;
@@ -159,11 +157,9 @@
 <body>
     <div class="wrapper">
         <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data" autocomplete="off">
-
             {% csrf_token %}
             <input type="text" name="fakeusernameremembered" style="display:none" />
             <input type="password" name="fakepasswordremembered" style="display:none" />
-
             <h2>User Registration</h2>
 
             <div class="input-field">
@@ -171,37 +167,30 @@
                     value="{{ username|default:'' }}" required />
             </div>
 
-            <!-- Email -->
             <div class="input-field">
                 <input type="email" name="email" placeholder="Enter your email" autocomplete="off"
                     value="{{ email|default:'' }}" required />
             </div>
 
-            <!-- Password -->
             <div class="input-field">
                 <input type="password" name="password1" placeholder="Enter your password" autocomplete="new-password"
                     value="{{ password1|default:'' }}" required />
             </div>
 
-            <!-- Confirm Password -->
             <div class="input-field">
-                <input type="password" name="password2" placeholder="Confirm your password" autocomplete="new-password"
-                    value="{{ password2|default:'' }}" required />
+                <input type="password" name="password2" placeholder="Confirm your password"
+                    autocomplete="new-password" value="{{ password2|default:'' }}" required />
             </div>
 
-            <!-- Full Name -->
             <div class="input-field">
                 <input type="text" name="full_name" placeholder="Enter your full name" autocomplete="off"
                     value="{{ full_name|default:'' }}" required />
             </div>
 
-            <!-- Phone Number -->
             <div class="input-field">
-                <label for="phone"></label>
                 <input type="tel" id="phone" name="phone" placeholder="Enter your phone number"
                     value="{{ phone|default:'+91' }}" required />
             </div>
-
 
             <div class="input-field">
                 <select name="batch" required>
@@ -215,19 +204,17 @@
 
             <div class="input-field">
                 <input type="tel" name="n_adult" placeholder="how many adults participate" autocomplete="off"
-                    value="{{ phone|default:'' }}" required />
+                    value="{{ n_adult|default:'' }}" required />
             </div>
 
             <div class="input-field">
                 <input type="tel" name="n_child" placeholder="how many childrens participate" autocomplete="off"
-                    value="{{ phone|default:'' }}" required />
+                    value="{{ n_child|default:'' }}" required />
             </div>
-
 
             <div class="input-field">
                 <input type="file" name="photo" accept="image/*" />
             </div>
-
 
             <button type="submit">Register</button>
 
@@ -252,10 +239,6 @@
         </div>
     </div>
 
-    
-
-
-
     <script>
         let cropper;
         const input = document.querySelector('input[name="photo"]');
@@ -266,8 +249,8 @@
             const file = e.target.files[0];
             if (!file) return;
 
-            if (file.size > 1024 * 1024) {
-                alert("Image must be below 1024KB.");
+            if (file.size < 300 * 1024) {
+                alert("Please choose a better quality image (minimum 300KB).");
                 input.value = '';
                 return;
             }
@@ -276,7 +259,6 @@
             reader.onload = function (event) {
                 cropImage.src = event.target.result;
                 modal.style.display = 'flex';
-
                 cropImage.onload = () => {
                     if (cropper) cropper.destroy();
                     cropper = new Cropper(cropImage, {
@@ -289,21 +271,36 @@
         });
 
         function cropAndUpload() {
-            cropper.getCroppedCanvas().toBlob(blob => {
-                if (blob.size > 1024 * 1024) {
-                    alert("Cropped image exceeds 1024KB. Try cropping tighter or choosing a smaller file.");
-                    input.value = '';
+            const tryCompress = (quality = 0.95) => {
+                cropper.getCroppedCanvas().toBlob(blob => {
+                    if (blob.size > 1024 * 1024) {
+                        if (quality > 0.5) {
+                            tryCompress(quality - 0.05); // reduce quality gradually
+                        } else {
+                            alert("Cannot compress below 1MB without losing quality. Please crop tighter or choose a different image.");
+                            input.value = '';
+                            closeCropModal();
+                        }
+                        return;
+                    }
+
+                    if (blob.size < 300 * 1024) {
+                        alert("Cropped image is too low quality (below 300KB). Try cropping tighter or choosing a better image.");
+                        input.value = '';
+                        closeCropModal();
+                        return;
+                    }
+
+                    const croppedFile = new File([blob], "cropped.jpg", { type: "image/jpeg" });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(croppedFile);
+                    input.files = dataTransfer.files;
+
                     closeCropModal();
-                    return;
-                }
+                }, 'image/jpeg', quality);
+            };
 
-                const croppedFile = new File([blob], "cropped.jpg", { type: "image/jpeg" });
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(croppedFile);
-                input.files = dataTransfer.files;
-
-                closeCropModal();
-            }, 'image/jpeg', 0.95);
+            tryCompress(); // start with highest quality
         }
 
         function closeCropModal() {

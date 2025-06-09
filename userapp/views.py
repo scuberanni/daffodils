@@ -127,8 +127,8 @@ def user_logout(request):
 
 @login_required(login_url='/user/login/')
 def user_dashboard(request):
-    user_id = request.user.id
-    return render(request, 'userapp/user_dashboard.html', {'user_id': user_id})
+    profile = UserProfile.objects.get(user=request.user)
+    return render(request, 'userapp/user_dashboard.html', {'profile': profile})
 
 @login_required
 def view_profile(request):
