@@ -13,6 +13,7 @@ import urllib.parse
 import webbrowser  # for optional testing
 from django.shortcuts import get_object_or_404
 from django import forms
+from django.utils.timezone import now
 
 def register(request):
     if request.method == 'POST':
@@ -128,7 +129,10 @@ def user_logout(request):
 @login_required(login_url='/user/login/')
 def user_dashboard(request):
     profile = UserProfile.objects.get(user=request.user)
-    return render(request, 'userapp/user_dashboard.html', {'profile': profile})
+    return render(request, 'userapp/user_dashboard.html', {
+        'profile': profile,
+        'STATIC_VERSION': int(now().timestamp())  # Add this line
+    })
 
 @login_required
 def view_profile(request):
