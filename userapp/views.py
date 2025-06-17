@@ -15,8 +15,13 @@ from django.shortcuts import get_object_or_404
 from django import forms
 from django.utils.timezone import now
 
+
+@login_required
+def register_book(request):
+    return render(request, 'userapp/register_book.html')
+
 def register(request):
-    if request.method == 'POST':
+    if request.method == 'POST': 
         username = request.POST.get('username', '')
         email = request.POST.get('email', '')
         password1 = request.POST.get('password1', '')

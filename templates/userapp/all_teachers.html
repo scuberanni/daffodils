@@ -9,7 +9,7 @@
 
 
 
-<div class="container " >
+<div class="container ">
   <div class="row">
     {% for profile in users %}
     <div class="col-4 col-md-2">
@@ -28,6 +28,17 @@
     {% empty %}
     <p>No teachers found.</p>
     {% endfor %}
+
+    <div class="col-4 col-md-2">
+      <div class="profile-card">
+        <a href="{% url 'register_book' %}" title=""> 
+          <img src="{% static 'images/rb.png' %}" alt="Default photo" class="photo-rounded" />
+        </a>
+      </div>
+      <p style=" text-align: center; font-weight: bold;">Register Book</p>
+
+    </div>
+
   </div>
 </div>
 
@@ -73,7 +84,6 @@
   }
 
   /* Responsive tweak (optional) */
-  
 </style>
 
 {% endblock %}
