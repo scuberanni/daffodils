@@ -17,13 +17,23 @@
 
 
     <style>
-        .bgimg {
-            background-image: url("{% static 'images/home.jpg' %}");
+        .bgimg{
             /* Use static URL for image */
-            min-height: 100vh;
+            height: 720px;
+            width: 1530px;
             background-position: center;
             background-size: cover;
         }
+
+        @media (max-width: 768px) {
+        .bgimg {
+            /* Use static URL for image */
+            height: 825px;
+            width: 425px;
+            background-position: center;
+            background-size: cover;
+        }
+    }
 
         .hero-text {
             position: absolute;
@@ -87,6 +97,14 @@
             margin: auto;
             opacity: 0.6;
         }
+
+        .btn-s {
+            border-color: rgb(255, 255, 255);
+            border-width: 2px;
+            color: #000000;
+            background: linear-gradient(to right, #593d00, #feb47b);
+
+        }
     </style>
 
 
@@ -95,21 +113,22 @@
 <body>
 
     <div class="bgimg">
+        <img src="{% static 'images/daffo.jpg' %}" alt="" class="bgimg">
         <!-- Hero Text -->
         <div class="hero-text">
-            <h5>Welcome to</h5>
+           <!-- <h5>Welcome to</h5>
             <h1 class="display-1">DAFFODILS</h1>
-            <hr class="border-white">
+            <hr class="border-white"> -->
         </div>
 
         <div class="col-12 bg-success">
             <div class="row">
                 <div class="d-flex justify-content-center fixed-bottom pb-4">
                     <div class="btn-custom mx-2">
-                        <a href="{% url 'user_login' %}" class="btn btn-light btn-lg">Login to continue</a>
+                        <a href="{% url 'user_login' %}" class="btn btn-s btn-lg">Login to continue</a>
                     </div>
                     <div class="btn-custom mx-2">
-                        <a href="{% url 'register' %}" class="btn btn-light btn-lg">Register</a>
+                        <a href="{% url 'register' %}" class="btn btn-s btn-lg">Register</a>
                     </div>
                 </div>
             </div>

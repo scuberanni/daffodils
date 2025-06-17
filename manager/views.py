@@ -177,6 +177,20 @@ def edit_user_profile(request, user_id):
     })
 
 @daffodils_required
+def users_details(request, pk):
+    photo = get_object_or_404(UserProfile, pk=pk)
+    return render(request, 'users_details.html', {'photo':photo})
+
+@daffodils_required
+def delete_users(request, pk):
+    photo = get_object_or_404(UserProfile, pk=pk)
+    if request.method == 'POST':
+        photo.delete()
+        messages.success(request, "user deleted successfully!")
+        return redirect('users list')
+    return render(request, 'confirm_delete_user.html', {'photo': photo})
+
+@daffodils_required
 def teachers(request):
     users = TeacherProfile.objects.all()
     return render(request, 'teacher.html', {'users': users})

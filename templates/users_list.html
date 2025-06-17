@@ -51,7 +51,7 @@
         <div class="col-6 col-md-2 mb-3">
             <div class="card border-primary shadow rounded-4"
                 style="height: 300px; display: flex; flex-direction: column;">
-                <a href="{% url 'edit_user_profile' profile.id %}">
+                <a href="{% url 'users_details' profile.id %}">
                     {% if profile.photo %}
                     <img src="{{ profile.photo.url }}" class="card-img-top rounded-top-4"
                         style="height: 180px; object-fit: cover;" alt="User Photo">

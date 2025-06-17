@@ -1,0 +1,75 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style>
+    .profile-img {
+        margin-top: 20px;
+        max-width: 500px;
+        max-height: 700px;
+        height: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .profile-img {
+            margin-top: 5px;
+            max-width: 280px;
+            max-height: 350px;
+        }
+    }
+</style>
+
+<div class="container pt-4">
+    <div id="profile-data" data-batch="{{ profile.batch }}">
+        <div class="pt-2 shadow-lg rounded">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center mb-3 mb-md-0">
+                    {% if photo.photo %}
+                    <img src="{{ photo.photo.url }}" alt="User Photo" class="img-fluid border profile-img">
+                    {% else %}
+                    <img src="{% static 'images/prp.png' %}" alt="Default Photo" class="img-fluid border profile-img">
+                    {% endif %}
+                </div>
+
+
+                <div class="col-md-5 pt-2 mx-5">
+                    <h2 style=" font-weight: bold;" class="text-primary">{{ photo.user.first_name|upper }} {{photo.user.last_name |upper}}</h2>
+                    <h2 style=" font-weight: bold;" class="text-primary"> {{ photo.name |upper}}</h2>
+                    <h5 class="text-muted">{{ photo.user.email }}</h5>
+                    <p><strong>Batch:</strong> {{ photo.batch }}</p>
+                    <p><strong>Phone:</strong> {{ photo.phone }}</p>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="text-center mt-3 col-1 col-md-3 ">
+                    </div>
+                    <div class="text-center mt-3 col-4 col-md-2 ">
+
+                        {% if photo.is_approved %}
+                        <a style="width: 100%;" href="" class="btn btn-success">Approved</a>
+                        {% else %}
+                        <a style="width: 100%;color: rgb(1, 1, 1);" href="{% url 'approve_user' photo.id %}"
+                            class="btn btn-warning">Pending</a>
+                        {% endif %}
+                    </div>
+
+                    <div class="text-center mt-3 col-3 col-md-2">
+                        <a style="width: 100%;" href="{% url 'edit_user_profile' photo.pk %}"
+                            class="btn btn-info">Edit</a>
+                    </div>
+                    <div class="text-center mt-3 col-4 col-md-2 mb-3">
+                        <a style="width: 100%;" href="{% url 'delete_users' photo.pk %}"
+                            class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
